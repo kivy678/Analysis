@@ -1,0 +1,63 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} DeviceManager {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+<div class="row justify-content-md-center">
+  <div class="row">
+    <div class="col-12 col-xl-8 mb-4">
+      <div class="row">
+        <div class="col-12 mb-4">
+    
+          <div class="card border-light shadow-sm">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col">
+                <h2 class="h5">디바이스 리스트</h2>
+                </div>
+                <div class="col text-right">
+                  <a href="#" class="btn btn-sm btn-secondary">See all</a>
+                </div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                <tr>
+                  <th scope="col">MODEL</th>
+                  <th scope="col">CPU</th>
+                  <th scope="col">SDK</th>
+                  <th scope="col">ROOTING</th>
+                  <th scope="col">SET</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                  <th scope="row">SM-G977N</th>
+                  <td>x86</td>
+                  <td>SM-G977N</td>
+                  <td>True</td>
+                  <td>True</td>
+                </tr>
+
+                </tbody>
+              </table>
+            </div>
+           </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
