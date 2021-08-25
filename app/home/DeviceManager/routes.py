@@ -9,9 +9,6 @@ from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
 
-from database.models import DEVICE
-from app import db
-
 @blueprint.route('/dashboard')
 @login_required
 def index():
@@ -20,24 +17,7 @@ def index():
 
 @blueprint.route('/<template>')
 @login_required
-def device(template):
-    """
-    form = {
-        'model': 'android2',
-        'cpu': 'x86',
-        'sdk': 'android-86',
-        'su': True,
-        'setup': True
-    }
-
-    user = DEVICE(**form)
-    db.session.add(user)
-    db.session.commit()
-    """
-
-    user = DEVICE.query.all()
-    for i in user:
-        print(i.cpu)
+def route_template(template):
 
     try:
 
