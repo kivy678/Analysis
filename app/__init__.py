@@ -10,8 +10,13 @@ from importlib import import_module
 from logging import basicConfig, DEBUG, getLogger, StreamHandler
 from os import path
 
+from app.session import setup as SessionSetup
+
 db = SQLAlchemy()
 login_manager = LoginManager()
+
+def setup(app):
+    SessionSetup(app)
 
 def register_extensions(app):
     db.init_app(app)
@@ -38,4 +43,6 @@ def create_app(config):
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
+    #setup(app)
+
     return app

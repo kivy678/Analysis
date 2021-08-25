@@ -30,7 +30,7 @@ class User(db.Model, UserMixin):
 
             if property == 'password':
                 value = hash_pass( value ) # we need bytes here (not plain str)
-                
+
             setattr(self, property, value)
 
     def __repr__(self):

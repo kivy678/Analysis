@@ -15,4 +15,6 @@ LOG_PRINT 		= True
 GLOBAL_SETTINGS = Join(BASE_DIR, "global.ini")
 SHARED_PATH_DIR = Join('common', 'shared_prefs')
 
+FLASK_SESSION	= Join(BASE_DIR, "__session__")
+
 #############################################################################
