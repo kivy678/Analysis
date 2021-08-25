@@ -10,7 +10,7 @@ import imp
 imp.reload(sys)
 # sys.setdefaultencoding('utf-8')
 
-ENV_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.env')
+ENV_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), '.venv')
 
 if 'Windows' == platform.system():
     ENV_PATH = os.path.join(ENV_DIR, 'Scripts', 'activate_this.py')
