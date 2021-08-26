@@ -14,16 +14,20 @@ class DEVICE_BASIS:
     }
 
     _isConnect  = None
-    _arch   = None
+    _arch       = None
+    _model      = None
     _sdk        = None
     _su         = None
 
     def __init__(self, *args, **kwargs):
+        self.name = kwargs['name']
+
         self._isConnect = adb.adbDevices()
         if self._isConnect:
-            self._arch  = adb.getSystem()
-            self._sdk   = adb.getSdk()
-            self._su    = self.isRoot()
+            self._arch  = adb.getSystem(self.name)
+            self._model = adb.getModel(self.name)
+            self._sdk   = adb.getSdk(self.name)
+            self._su    = self.isRoot(self.name)
 
     def __getattr__(self, key):
         try:
@@ -32,12 +36,16 @@ class DEVICE_BASIS:
             return None
 
     @classmethod
-    def getPlatform(cls):
-        return cls()
+    def getPlatform(cls, **kwargs):
+        return cls(**kwargs)
 
     @property
     def isConnect(self):
         return self._isConnect
+
+    @property
+    def model(self):
+        return self._model
 
     @property
     def arch(self):
@@ -51,10 +59,10 @@ class DEVICE_BASIS:
     def su(self):
         return self._su
 
-    def isRoot(self):
-        stdout = shell.runCommand("if [ -f /system/bin/su ]; then echo True; fi", shell=True)
+    def isRoot(self, name):
+        stdout = shell.runCommand("if [ -f /system/bin/su ]; then echo True; fi", shell=True, name=name)
         if stdout == "":
-            stdout = shell.runCommand("if [ -f /sbin/su ]; then echo True; fi", shell=True)
+            stdout = shell.runCommand("if [ -f /sbin/su ]; then echo True; fi", shell=True, name=name)
 
         if stdout == 'True':
             return True

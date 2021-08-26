@@ -17,10 +17,7 @@
                     <div class="card-header">
                         <div class="row align-items-center">
                             <div class="col">
-                            <h2 class="h5">디바이스 리스트</h2>
-                            </div>
-                            <div class="col text-right">
-                                <a href="#" class="btn btn-sm btn-secondary">RUN</a>
+                            <h2 class="h5">Device List</h2>
                             </div>
                         </div>
                     </div>
@@ -31,25 +28,20 @@
                                 <th scope="col">MODEL</th>
                                 <th scope="col">CPU</th>
                                 <th scope="col">SDK</th>
-                                <th scope="col">SU</th>
                                 <th scope="col">ROOTING</th>
+                                <th scope="col">SETTING</th>
                             </tr>
                             </thead>
                             <tbody>
+                            {% for device in devices %}
                             <tr>
-                                <th scope="row">SAM</th>
-                                <td>x86</td>
-                                <td>SDK-18</td>
-                                <td>TRUE</td>
-                                <td>TRUE</td>
+                                <th scope="row">{{ device.model }}</th>
+                                <td> {{ device.arch }}</td>
+                                <td>{{ device.sdk }}</td>
+                                <td>{{ device.su }}</td>
+                                <td></td>
                             </tr>
-                            <tr>
-                                <th scope="row">SAM2</th>
-                                <td>x60</td>
-                                <td>SDK-24</td>
-                                <td>TRUE</td>
-                                <td>TRUE</td>
-                            </tr>
+                            {% endfor %}
                             </tbody>
                         </table>
                     </div>
@@ -61,58 +53,41 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center justify-content-between border-bottom border-light pb-4">
                             <div>
-                                <h6 class="mb-0">에뮬레이터 생성</h6>
+                                <h6 class="mb-0">LDPlayer Controler</h6>
                             </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fas fa-angle-down dropdown-arrow"></span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#">Create</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Remove</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Restart</a>
+                                </div>
                             </div>
                         </div>
+
                         <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
                             <div>
-                                <h6 class="mb-0">에뮬레이터 삭제</h6>
+                                <h6 class="mb-0">NoxPlayer Controler</h6>
                             </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 실행</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fas fa-angle-down dropdown-arrow"></span>
+                                </button>
                             </div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 종료</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 재시작</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 앱 실행</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
+
                         <div class="d-flex align-items-center justify-content-between pt-3">
                             <div>
-                                <h6 class="mb-0">에뮬레이터 앱 종료</h6>
+                                <h6 class="mb-0">BlueStack Controler</h6>
                             </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            <div class="dropdown">
+                                <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="fas fa-angle-down dropdown-arrow"></span>
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -125,7 +100,7 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                <h2 class="h5">에뮬레이터 리스트</h2>
+                                <h2 class="h5">LDPlayer List</h2>
                                 </div>
                                 <div class="col text-right">
                                     <a href="#" class="btn btn-sm btn-secondary">RUN</a>
@@ -137,14 +112,21 @@
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">MODEL</th>
-                                    <th scope="col">선택</th>
+                                    <th scope="col">Choice</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% for ld in ldplayer %}
                                 <tr>
-                                    <th scope="row">SAM</th>
-                                    <td>True</td>
+                                    <th scope="row"> {{ ld }}</th>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="user-notification-1">
+                                            <label class="form-check-label" for="user-notification-1"></label>
+                                        </div>
+                                    </td>
                                 </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -156,7 +138,7 @@
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                <h2 class="h5">실행 앱 리스트</h2>
+                                <h2 class="h5">Running App List</h2>
                                 </div>
                                 <div class="col text-right">
                                     <a href="#" class="btn btn-sm btn-secondary">RUN</a>
@@ -167,14 +149,19 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">앱 이름</th>
-                                    <th scope="col">선택</th>
+                                    <th scope="col">App Name</th>
+                                    <th scope="col">Choice</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th scope="row">com.android.develop</th>
-                                    <td>True</td>
+                                    <td>
+                                        <div class="form-check form-switch">
+                                            <input class="form-check-input" type="checkbox" id="user-notification-1">
+                                            <label class="form-check-label" for="user-notification-1"></label>
+                                        </div>
+                                    </td>
                                 </tr>
                                 </tbody>
                             </table>
