@@ -52,7 +52,7 @@ def device(template):
 
     except TemplateNotFound:
         return render_template('page-404.html'), 404
-    
+
     except:
         return render_template('page-500.html'), 500
 

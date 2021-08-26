@@ -7,19 +7,128 @@
 
 {% block content %}
 
+<div class="row">
 
-    <div class="row">
-        <div class="col-12 col-xl-8 mb-4">
-            <div class="row">
+
+    <div class="col-12 col-xl-8 mb-4">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col">
+                            <h2 class="h5">디바이스 리스트</h2>
+                            </div>
+                            <div class="col text-right">
+                                <a href="#" class="btn btn-sm btn-secondary">RUN</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col">MODEL</th>
+                                <th scope="col">CPU</th>
+                                <th scope="col">SDK</th>
+                                <th scope="col">SU</th>
+                                <th scope="col">ROOTING</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <th scope="row">SAM</th>
+                                <td>x86</td>
+                                <td>SDK-18</td>
+                                <td>TRUE</td>
+                                <td>TRUE</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">SAM2</th>
+                                <td>x60</td>
+                                <td>SDK-24</td>
+                                <td>TRUE</td>
+                                <td>TRUE</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 mb-4">
+                <div class="card border-light shadow-sm">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light pb-4">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 생성</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 삭제</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 실행</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 종료</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 재시작</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 앱 실행</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-between pt-3">
+                            <div>
+                                <h6 class="mb-0">에뮬레이터 앱 종료</h6>
+                            </div>
+                            <div>
+                                <a href="#" class="text-primary fw-bold"><span class="fas fa-chart-line ms-2"></span></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6 mb-4">
                 <div class="col-12 mb-4">
                     <div class="card border-light shadow-sm">
                         <div class="card-header">
                             <div class="row align-items-center">
                                 <div class="col">
-                                <h2 class="h5">디바이스 리스트</h2>
+                                <h2 class="h5">에뮬레이터 리스트</h2>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="#" class="btn btn-sm btn-secondary">See all</a>
+                                    <a href="#" class="btn btn-sm btn-secondary">RUN</a>
                                 </div>
                             </div>
                         </div>
@@ -28,19 +137,44 @@
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">MODEL</th>
-                                    <th scope="col">CPU</th>
-                                    <th scope="col">SDK</th>
-                                    <th scope="col">SU</th>
-                                    <th scope="col">ROOTING</th>
+                                    <th scope="col">선택</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr>
                                     <th scope="row">SAM</th>
-                                    <td>x86</td>
-                                    <td>SDK-18</td>
-                                    <td>TRUE</td>
-                                    <td>TRUE</td>
+                                    <td>True</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col">
+                                <h2 class="h5">실행 앱 리스트</h2>
+                                </div>
+                                <div class="col text-right">
+                                    <a href="#" class="btn btn-sm btn-secondary">RUN</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table align-items-center table-flush">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">앱 이름</th>
+                                    <th scope="col">선택</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <th scope="row">com.android.develop</th>
+                                    <td>True</td>
                                 </tr>
                                 </tbody>
                             </table>
@@ -49,85 +183,42 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-xl-4 mb-4">
-            
-            <div class="col-12 px-0 mb-4">
-                <div class="card border-light shadow-sm">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light pb-4">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 리스트</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#755<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 생성</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 삭제</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 실행</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 종료</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 재시작</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between border-bottom border-light py-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 앱 실행</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#32<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between pt-3">
-                            <div>
-                                <h6 class="mb-0">에뮬레이터 앱 종료</h6>
-                            </div>
-                            <div>
-                                <a href="#" class="text-primary fw-bold">#16<span class="fas fa-chart-line ms-2"></span></a>
-                            </div>
-                        </div>
+    </div>
 
 
-
-
+    <div class="col-12 col-xl-4 mb-4">
+        <div class="col-12 px-0 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-body d-flex flex-row align-items-center flex-0 border-bottom">
+                    <div class="d-block">
+                        <div class="h6 fw-normal text-gray mb-2">Total orders</div>
+                        <h2 class="h3">452</h2>
+                        <div class="small mt-2">
+                            <span class="fas fa-angle-up text-success"></span>
+                            <span class="text-success fw-bold">18.2%</span>
+                        </div>
+                    </div>
+                    <div class="d-block ms-auto">
+                        <div class="d-flex align-items-center text-right mb-2">
+                            <span class="shape-xs rounded-circle bg-dark me-2"></span>
+                            <span class="fw-normal small">July</span>
+                        </div>
+                        <div class="d-flex align-items-center text-right">
+                            <span class="shape-xs rounded-circle bg-secondary me-2"></span>
+                            <span class="fw-normal small">August</span>
+                        </div>
                     </div>
                 </div>
+                <div class="card-body p-2">
+                    <div class="ct-chart-ranking ct-golden-section ct-series-a"></div>
+                </div>
             </div>
-           
         </div>
     </div>
+
+
+</div>
+
 
 {% endblock content %}
 
