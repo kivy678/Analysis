@@ -9,6 +9,7 @@ import re
 
 __all__ = [
     "adbDevices",
+    "getDeviceList",
     "adbRestart",
     "getModel",
     "getSystem",
@@ -20,9 +21,12 @@ __all__ = [
 
 def adbDevices():
     stdout = shell.runCommand("adb devices")
-    #dev_list = list(map(lambda x: re.match(r"(.*)\\t.*", x).group(1), repr(stdout).split(r'\r\n')[1:]))
-    #return dev_list
     return True if r'\n' in repr(stdout) else False
+
+def getDeviceList():
+    stdout = shell.runCommand("adb devices")
+    dev_list = list(map(lambda x: re.match(r"(.*)\\t.*", x).group(1), repr(stdout).split(r'\r\n')[1:]))
+    return dev_list
 
 def adbRestart():
     shell.runCommand("adb kill-server")
@@ -31,22 +35,23 @@ def adbRestart():
 
 #############################################################################
 
-def getModel():
-    stdout = shell.runCommand("getprop ro.product.model", shell=True)
+def getModel(name):
+    stdout = shell.runCommand("getprop ro.product.model", shell=True, name=name)
     return stdout
 
-def getSystem():
-    stdout = shell.runCommand("getprop ro.product.cpu.abi", shell=True)
+def getSystem(name):
+    stdout = shell.runCommand("getprop ro.product.cpu.abi", shell=True, name=name)
     return stdout.replace('-', '_')
 
-def getSdk():
-    stdout = shell.runCommand("getprop ro.build.version.sdk", shell=True)
+def getSdk(name):
+    stdout = shell.runCommand("getprop ro.build.version.sdk", shell=True, name=name)
     return int(stdout)
 
-def getBootImage(api):
+def getBootImage(api, name):
     if api < 7:
-        stdout = shell.runCommand("getprop ro.build.fingerprint", shell=True)
+        stdout = shell.runCommand("getprop ro.build.fingerprint", shell=True, name=name)
     else:
-        stdout = shell.runCommand("getprop ro.bootimage.build.fingerprint", shell=True)
+        stdout = shell.runCommand("getprop ro.bootimage.build.fingerprint", shell=True, name=name)
 
     return stdout
+
