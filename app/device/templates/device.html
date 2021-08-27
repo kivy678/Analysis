@@ -73,21 +73,11 @@
                             <div>
                                 <h6 class="mb-0">NoxPlayer Controler</h6>
                             </div>
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="fas fa-angle-down dropdown-arrow"></span>
-                                </button>
-                            </div>
                         </div>
 
                         <div class="d-flex align-items-center justify-content-between pt-3">
                             <div>
                                 <h6 class="mb-0">BlueStack Controler</h6>
-                            </div>
-                            <div class="dropdown">
-                                <button type="button" class="btn btn-sm btn-light dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="fas fa-angle-down dropdown-arrow"></span>
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -121,7 +111,7 @@
                                     <th scope="row"> {{ ld }} </th>
                                     <td>
                                         <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="user-notification-1">
+                                            <input class="form-check-input" type="checkbox" id="id-ld-check">
                                             <label class="form-check-label" for="user-notification-1"></label>
                                         </div>
                                     </td>
@@ -214,62 +204,33 @@
 
 $(document).on('click', '#ld_run_btn', function() {
 
+    var model = new Array();
+
     $('#id-list tbody tr').each(function(i, el) {
         var th = this.getElementsByTagName("th");
-        var td = this.getElementsByTagName("td");
+        var td = this.querySelector("td div #id-ld-check");
 
-
-        var input = $(td).child();
-        var t2 = this.getElementById("user-notification-1");
-        //var ta = this.getElementsByTagName("input");
-
-        //var model = $(th).text();
-        //var check = $(td).is(":checked");
-        var tagName = $(t2).prop('tagName');
-        //alert(td.constructor.name)
-        alert(tagName)
-   });
-
-
-
-    //var format = $('input[name=format]:checked').val();
-    //$(test1).is(":checked");
-
-    
-
-
-
-    //var arch = $('#id-ldcheckbox:checked').val();
-    //alert(arch)
-
-    
-   // });
-  
-
-/*
-    var tr = $(this);
-    var td = tr.children();
-
-    var model = td.eq(0).text();
+        if ($(td).is(":checked")) {
+            model[i] = $(th).text();
+        }      
+    });
 
     $.ajax({
-      url: "/dev/work",
-      type: "GET",
-      data: {"model": model},
+        url: "/device",
+        type: "POST",
+        traditional : true,
+        data: {"model": model},
 
-      success: function(response) {
-          console.log("SUCCESS: ");
-          //$("#device").html(response);
-      },
-      error: function(error) {
-          console.log("ERROR: " + error);
-      }
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
 
     });
 
-*/
 });
-
 
 
 </script>

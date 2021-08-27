@@ -31,6 +31,14 @@ def device(template):
                                               devices=deviceObject,
                                               ldplayer=ldObject)
 
+        elif request.method == 'POST':
+            for ld in request.form.getlist('model'):
+                LDPlayer.run(ld)
+                            
+            return "OK"
+
+
+
     except TemplateNotFound:
         return render_template('page-404.html'), 404
 
