@@ -103,12 +103,12 @@
                                 <h2 class="h5">LDPlayer List</h2>
                                 </div>
                                 <div class="col text-right">
-                                    <a href="#" class="btn btn-sm btn-secondary">RUN</a>
+                                    <button type="button" class="btn btn-sm btn-secondary" id="ld_run_btn">RUN</button>
                                 </div>
                             </div>
                         </div>
                         <div class="table-responsive">
-                            <table class="table align-items-center table-flush">
+                            <table class="table align-items-center table-flush" id="id-list">
                                 <thead class="thead-light">
                                 <tr>
                                     <th scope="col">MODEL</th>
@@ -118,7 +118,7 @@
                                 <tbody>
                                 {% for ld in ldplayer %}
                                 <tr>
-                                    <th scope="row"> {{ ld }}</th>
+                                    <th scope="row"> {{ ld }} </th>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" id="user-notification-1">
@@ -203,11 +203,74 @@
         </div>
     </div>
 
-
 </div>
 
 
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script type="text/javascript">
+
+$(document).on('click', '#ld_run_btn', function() {
+
+    $('#id-list tbody tr').each(function(i, el) {
+        var th = this.getElementsByTagName("th");
+        var td = this.getElementsByTagName("td");
+
+
+        var input = $(td).child();
+        var t2 = this.getElementById("user-notification-1");
+        //var ta = this.getElementsByTagName("input");
+
+        //var model = $(th).text();
+        //var check = $(td).is(":checked");
+        var tagName = $(t2).prop('tagName');
+        //alert(td.constructor.name)
+        alert(tagName)
+   });
+
+
+
+    //var format = $('input[name=format]:checked').val();
+    //$(test1).is(":checked");
+
+    
+
+
+
+    //var arch = $('#id-ldcheckbox:checked').val();
+    //alert(arch)
+
+    
+   // });
+  
+
+/*
+    var tr = $(this);
+    var td = tr.children();
+
+    var model = td.eq(0).text();
+
+    $.ajax({
+      url: "/dev/work",
+      type: "GET",
+      data: {"model": model},
+
+      success: function(response) {
+          console.log("SUCCESS: ");
+          //$("#device").html(response);
+      },
+      error: function(error) {
+          console.log("ERROR: " + error);
+      }
+
+    });
+
+*/
+});
+
+
+
+</script>
+{% endblock javascripts %}

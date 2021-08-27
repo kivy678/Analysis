@@ -14,28 +14,22 @@ from module.android.DeviceManager.list.base import DEVICE_BASIS
 from module.android.DeviceManager.list.emulator import LDPlayer
 
 
-@blueprint.route('/<template>')
+@blueprint.route('/<template>', methods=['GET', 'POST'])
 @login_required
 def device(template):
-    # adb device
-    deviceObject = [DEVICE_BASIS.getPlatform(name=n) for n in getDeviceList()]
-    ldObject = LDPlayer.list()
-
-
-    #
-
     try:
-
         if not template.endswith( '.html' ):
             template += '.html'
-
-        # Detect the current page
         segment = get_segment( request )
 
-        # Serve the file (if exists) from app/templates/FILE.html
-        return render_template( template, segment=segment,
-                                            devices=deviceObject,
-                                            ldplayer=ldObject)
+        # adb device
+        if request.method == 'GET':
+            deviceObject = [DEVICE_BASIS.getPlatform(name=n) for n in getDeviceList()]
+            ldObject = LDPlayer.list()
+ 
+            return render_template( template, segment=segment,
+                                              devices=deviceObject,
+                                              ldplayer=ldObject)
 
     except TemplateNotFound:
         return render_template('page-404.html'), 404
