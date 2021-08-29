@@ -39,7 +39,11 @@
                                 <td> {{ device.arch }}</td>
                                 <td>{{ device.sdk }}</td>
                                 <td>{{ device.su }}</td>
-                                <td></td>
+                                <td>
+                                    <div class="col text">
+                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">SET</button>
+                                </div>
+                                </td>
                             </tr>
                             {% endfor %}
                             </tbody>
@@ -220,6 +224,24 @@ $(document).on('click', '#ld_run_btn', function() {
         type: "POST",
         traditional : true,
         data: {"model": model},
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+
+    });
+
+});
+
+
+$(document).on('click', '#id_set_btn', function() {
+    $.ajax({
+        url: "/device",
+        type: "POST",
+        data: {"set": true},
 
         success: function(response) {
             console.log("SUCCESS: " + response);

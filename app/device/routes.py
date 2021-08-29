@@ -34,9 +34,12 @@ def device(template):
         elif request.method == 'POST':
             for ld in request.form.getlist('model'):
                 LDPlayer.run(ld)
-                            
-            return "OK"
+                return "OK"
 
+            if request.form.get('set'):
+                return "SET"
+
+            return "END"
 
 
     except TemplateNotFound:
