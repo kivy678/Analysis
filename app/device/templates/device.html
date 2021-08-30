@@ -36,12 +36,12 @@
                             {% for device in devices %}
                             <tr>
                                 <th scope="row">{{ device.model }}</th>
-                                <td> {{ device.arch }}</td>
+                                <td>{{ device.arch }}</td>
                                 <td>{{ device.sdk }}</td>
                                 <td>{{ device.su }}</td>
                                 <td>
                                     <div class="col text">
-                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">SET</button>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">{{ device.set }}</button>
                                 </div>
                                 </td>
                             </tr>

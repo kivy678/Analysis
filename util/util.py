@@ -17,5 +17,4 @@ def zipDecompress(src, drc, pwd=None):
         return True
 
     except Exception as e:
-        print(e)
         return False

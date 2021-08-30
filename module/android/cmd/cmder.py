@@ -20,8 +20,11 @@ class COMMANDER(SHELL):
                 pass
 
             try:
-                if (kwargs['shell'] is True) and (kwargs['name'] is not None):
+                if (kwargs['shell'] is True) and ('name' in kwargs):
                     cmd = f"adb -s {kwargs['name']} shell {cmd}"
+
+                elif kwargs['shell'] is True:
+                    cmd = f"adb shell {cmd}"
 
             except KeyError:
                 pass

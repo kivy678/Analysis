@@ -20,6 +20,8 @@ env
 
 # other
 .DS_Store
+LOG
+shared_prefs
 
 # sphinx docs 
 _build

@@ -2,12 +2,13 @@
 
 #############################################################################
 
+from module.android.DeviceManager.setup.tool import DEVICE_INSTALLER
 from module.android.cmd import shell, adb
 
 #############################################################################
 
 
-class DEVICE_BASIS:
+class DEVICE_BASIS(object):
     _ARCH_ = {
         "x86": "x86", "x64": "x64",
         "armeabi_v7a": "arm", "arm64_v8a": "arm64"
@@ -68,3 +69,21 @@ class DEVICE_BASIS:
             return True
         else:
             return False
+
+
+class DEVICE_MANAGER(DEVICE_BASIS):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self._installer = DEVICE_INSTALLER(self.arch, self.sdk)
+        self._set       = self._installer.isCommit()
+
+    @property
+    def set(self):
+        return self._set
+
+    def install(self):
+        print('in')
+        if self.set is False:
+            self._installer.appInstaller()
+            self._installer.toolInstaller()
+            self._installer.userToolInstaller()

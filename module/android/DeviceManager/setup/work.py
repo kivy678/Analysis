@@ -2,13 +2,6 @@
 
 ##########################################################################
 
-import pandas as pd
-
-from flask.views import MethodView
-from flask import render_template, request
-
-from web.views.device import view
-
 from module.mobile.DeviceManager.device import EMULATOR
 from module.database import df_dev
 
@@ -19,9 +12,9 @@ from util.Logger import LOG
 ##########################################################################
 
 
-class DEVICE_WORKER(MethodView):
+class DEVICE_WORKER:
     def get(self):
-        model = request.args['model']
+        model = ''
         dev = EMULATOR.getPlatform()
 
         if dev.setup() is False:
@@ -69,7 +62,3 @@ class DEVICE_WORKER(MethodView):
             LOG.info(f"{'[*]':<5}Has Initalize Device")
 
             return "Has Initalize Device"
-
-
-device = DEVICE_WORKER.as_view('work')
-view.add_url_rule('work', view_func=device)
