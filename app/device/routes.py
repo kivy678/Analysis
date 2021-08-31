@@ -2,6 +2,8 @@
 
 #############################################################################
 
+import pickle
+
 from app.device import blueprint
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
@@ -11,6 +13,8 @@ from jinja2 import TemplateNotFound
 from module.android.cmd.adb import *
 from module.android.DeviceManager.list.base import DEVICE_MANAGER
 from module.android.DeviceManager.list.emulator import LDPlayer
+
+from app.session import *
 
 #############################################################################
 
@@ -24,26 +28,37 @@ def device(template):
 
         # adb device
         if request.method == 'GET':
-            deviceObject = [DEVICE_MANAGER.getPlatform(name=n) for n in getDeviceList()]
+            devicesObject = [DEVICE_MANAGER.getPlatform(name=n) for n in getDeviceList()]
             ldObject = LDPlayer.list()
+
+            processer = devicesObject[0].getProcessInfor()
+            pList = processer.getProcList()
+
+            setSession('DevName', pickle.dumps([dev.name for dev in devicesObject]))
  
             return render_template( template, segment=segment,
-                                              devices=deviceObject,
+                                              devices=devicesObject,
+                                              plist=pList,
                                               ldplayer=ldObject)
 
         elif request.method == 'POST':
-            for ld in request.form.getlist('model'):
-                LDPlayer.run(ld)
+            model_list = request.form.getlist('model')
+            if model_list:
+                for ld in model_list:
+                    LDPlayer.run(ld)
+
                 return "OK"
 
             if request.form.get('set'):
-                # must need global values
-                for dev in deviceObject:
-                    dev.install()
+                devicesName = pickle.loads(getSession('DevName'))
+                if devicesName:
+                    for name in devicesName:
+                        devObj = DEVICE_MANAGER.getPlatform(name=name)
+                        devObj.install()
 
                 return "SET"
 
-            return "END"
+            return "NOT"
 
 
     except TemplateNotFound:

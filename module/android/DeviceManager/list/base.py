@@ -2,8 +2,12 @@
 
 #############################################################################
 
-from module.android.DeviceManager.setup.tool import DEVICE_INSTALLER
+from module.android.DeviceManager.tool import DEVICE_INSTALLER
 from module.android.cmd import shell, adb
+
+from module.android.DeviceManager.process import ProcessInfor
+
+from util.Logger import LOG
 
 #############################################################################
 
@@ -14,7 +18,6 @@ class DEVICE_BASIS(object):
         "armeabi_v7a": "arm", "arm64_v8a": "arm64"
     }
 
-    _isConnect  = None
     _arch       = None
     _model      = None
     _sdk        = None
@@ -23,12 +26,10 @@ class DEVICE_BASIS(object):
     def __init__(self, *args, **kwargs):
         self.name = kwargs['name']
 
-        self._isConnect = adb.adbDevices()
-        if self._isConnect:
-            self._arch  = adb.getSystem(self.name)
-            self._model = adb.getModel(self.name)
-            self._sdk   = adb.getSdk(self.name)
-            self._su    = self.isRoot(self.name)
+        self._arch  = adb.getSystem(self.name)
+        self._model = adb.getModel(self.name)
+        self._sdk   = adb.getSdk(self.name)
+        self._su    = self.isRoot(self.name)
 
     def __getattr__(self, key):
         try:
@@ -39,10 +40,6 @@ class DEVICE_BASIS(object):
     @classmethod
     def getPlatform(cls, **kwargs):
         return cls(**kwargs)
-
-    @property
-    def isConnect(self):
-        return self._isConnect
 
     @property
     def model(self):
@@ -77,13 +74,21 @@ class DEVICE_MANAGER(DEVICE_BASIS):
         self._installer = DEVICE_INSTALLER(self.arch, self.sdk)
         self._set       = self._installer.isCommit()
 
-    @property
-    def set(self):
-        return self._set
-
     def install(self):
-        print('in')
         if self.set is False:
+            LOG.info(f"{'[*]':<5}Settings Start")
+
             self._installer.appInstaller()
             self._installer.toolInstaller()
             self._installer.userToolInstaller()
+
+            self._installer.commit()
+
+            LOG.info(f"{'[*]':<5}Settings End")
+
+    def getProcessInfor(self):
+        return ProcessInfor(self.name)
+
+    @property
+    def set(self):
+        return self._set

@@ -43,6 +43,6 @@ def create_app(config):
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
-    #setup(app)
+    setup(app)
 
     return app

@@ -39,14 +39,21 @@
                                 <td>{{ device.arch }}</td>
                                 <td>{{ device.sdk }}</td>
                                 <td>{{ device.su }}</td>
+
+                                {% if device.set == False %}
                                 <td>
                                     <div class="col text">
-                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">{{ device.set }}</button>
-                                </div>
+                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">SET</button>
+                                    </div>
                                 </td>
+                                {% else %}
+                                <td>ON</td>                  
+                                {% endif %}
+
                             </tr>
                             {% endfor %}
                             </tbody>
+
                         </table>
                     </div>
                 </div>
@@ -143,13 +150,18 @@
                             <table class="table align-items-center table-flush">
                                 <thead class="thead-light">
                                 <tr>
-                                    <th scope="col">App Name</th>
-                                    <th scope="col">Choice</th>
+                                    <th scope="col">Chown</th>
+                                    <th scope="col">PID</th>
+                                    <th scope="col">APP NAME</th>
+                                    <th scope="col">CHOICE</th>
                                 </tr>
                                 </thead>
                                 <tbody>
+                                {% for proc in plist %}
                                 <tr>
-                                    <th scope="row">com.android.develop</th>
+                                    <th scope="row">{{ proc[0] }}</th>
+                                    <th scope="row">{{ proc[1] }}</th>
+                                    <th scope="row">{{ proc[2] }}</th>
                                     <td>
                                         <div class="form-check form-switch">
                                             <input class="form-check-input" type="checkbox" id="user-notification-1">
@@ -157,6 +169,7 @@
                                         </div>
                                     </td>
                                 </tr>
+                                {% endfor %}
                                 </tbody>
                             </table>
                         </div>
@@ -238,6 +251,9 @@ $(document).on('click', '#ld_run_btn', function() {
 
 
 $(document).on('click', '#id_set_btn', function() {
+    
+    $('#id_set_btn').hide();
+
     $.ajax({
         url: "/device",
         type: "POST",

@@ -13,7 +13,7 @@ TIME_OUT = 60
 
 class SHELL(object):
     def runCommand(self, cmd, timeout=TIME_OUT, encoder='utf-8'):
-        with subp(self.parseString(cmd), stdout=subprocess.PIPE) as proc:
+        with subp(self.parseString(cmd), stdout=subprocess.PIPE, shell=True) as proc:
             try:
                 return proc.communicate(timeout=timeout)[0].decode(encoder).strip()
             except subprocess.TimeoutExpired:
@@ -23,7 +23,7 @@ class SHELL(object):
                 print(f"COMMAND ERROR: {cmd}: {e}")
 
     def parseString(self, cmd):
-        s = shlex.shlex(cmd)
+        s = shlex.shlex(cmd, posix=True)
         s.whitespace_split = True
 
         return s
