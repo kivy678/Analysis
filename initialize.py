@@ -15,6 +15,7 @@ from common import getSharedPreferences
 from util.fsUtils import *
 
 from webConfig import *
+from util.Logger import LOG
 
 ##################################################################################################
 
