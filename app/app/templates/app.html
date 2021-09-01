@@ -143,6 +143,7 @@ $(document).on('change', '#formFile', function() {
 
         success: function(response) {
             console.log("SUCCESS: " + response);
+            location.reload();
         },
         error: function(error) {
             console.log("ERROR: " + error);

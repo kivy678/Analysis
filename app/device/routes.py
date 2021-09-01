@@ -30,14 +30,17 @@ def device():
             devicesObject = [DEVICE_MANAGER.getPlatform(name=n) for n in getDeviceList()]
             ldObject = LDPlayer.list()
 
-            processer = devicesObject[0].getProcessInfor()
-            pList = processer.getProcList()
+            for obj in devicesObject:
+                processer = obj.getProcessInfor()
+                pList = processer.getProcList()
+                dev_name = obj.name
+                break
 
             setSession('DevName', pickle.dumps([dev.name for dev in devicesObject]))
  
             return render_template( template, segment=segment,
                                               devices=devicesObject,
-                                              plist_dev=devicesObject[0].name,
+                                              plist_dev=dev_name,
                                               plist=pList,
                                               ldplayer=ldObject)
 

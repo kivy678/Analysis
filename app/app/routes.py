@@ -42,7 +42,6 @@ def app():
         template = segment + '.html'
 
         sample_list = [BaseName(path) for path in glob.glob(Join(SAMPLE_DIR, '*'))]
-        #getSample()
 
         if request.method == 'GET':
             return render_template(template, segment=segment,
@@ -53,6 +52,7 @@ def app():
             f.save(f_path)
 
             updateSample(f_path)
+            #Delete(f_path)
 
             return "OK"
 
@@ -99,3 +99,7 @@ def updateSample(f_path):
     except Exception as e:
         print(e)
         db.session.rollback()
+
+
+
+
