@@ -8,29 +8,45 @@ from bs4 import BeautifulSoup
 try: import simplejson as json
 except ImportError: import json
 
+from util.fsUtils import Join
+
 ###########################################################################################
 
 class XmlParser:
-    def __init__(self, path):
-        self._path = path
-        self._soup = None
+    def __init__(self, decomp_path):
+        self.decomp_path = decomp_path
+        self.res_path    = Join(decomp_path, 'resources')
+        self.manifest    = Join(self.res_path, 'AndroidManifest.xml')
+        self.strings     = Join(self.res_path, 'res', 'values', 'strings.xml')
 
-        self.createParer()
-
-    def createParer(self):
+    def getPackageName(self):
         try:
-            with open(self._path) as fr:
-                self._soup = BeautifulSoup(fr, "lxml-xml")
+            with open(self.manifest, encoding='utf-8') as fr:
+                soup = BeautifulSoup(fr, "lxml-xml")
+                label = soup.manifest['package']
 
-                return True
+                return label
 
         except Exception as e:
             print(e)
             return False
 
-    def parser(self, tag=None, attr=None):
-        for i in self._soup.find_all(tag):
-            return i.get(attr)
+    def getIconName(self):
+        try:
+            with open(self.manifest, encoding='utf-8') as fr:
+                soup = BeautifulSoup(fr, "lxml-xml")
+                label = soup.application['android:label'].lstrip('@')
+
+                labelName = label.split('/')[1]
+
+            with open(self.strings, encoding='utf-8') as fr:
+                soup = BeautifulSoup(fr, "lxml-xml")
+                for elm in soup.find('string', {'name': labelName}):
+                    return elm
+
+        except Exception as e:
+            print(e)
+            return False
 
 
 class JsonParser:
