@@ -18,13 +18,12 @@ from app.session import *
 
 #############################################################################
 
-@blueprint.route('/<template>', methods=['GET', 'POST'])
+@blueprint.route('/device', methods=['GET', 'POST'])
 @login_required
-def device(template):
+def device():
     try:
-        if not template.endswith( '.html' ):
-            template += '.html'
-        segment = get_segment( request )
+        segment = get_segment(request)
+        template = segment + '.html'
 
         # adb device
         if request.method == 'GET':
@@ -69,14 +68,12 @@ def device(template):
         return render_template('page-500.html'), 500
 
 
-def get_segment( request ): 
-
+def get_segment(request):
     try:
-
         segment = request.path.split('/')[-1]
 
         if segment == '':
-            segment = 'dashboard'
+            segment = 'device'
 
         return segment
 

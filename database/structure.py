@@ -10,13 +10,7 @@ class STATUS(Enum):
     FAILED            = 'FAILED'
 
 
-DEV_COLUMNS=[
-    'model',
-    'cpu',
-    'sdk',
-    'su',
-    'setup',
-]
+
 
 DEV_LIB_COLUMNS=[
     'model',
@@ -29,13 +23,6 @@ LIB_COLUMNS=[
     'lib_fk',
 ]
 
-APP_COLUMNS=[
-    'fileName',
-    'pkg',
-    'ctime',
-    'parent',
-    'status',
-]
 
 UNITY_COLUMNS=[
     'fileName',

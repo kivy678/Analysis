@@ -21,7 +21,7 @@ def getMD5(path):
         for chunk in iter(lambda: fr.read(m.block_size * 128), b''):
             m.update(chunk)
 
-        return m.hexdigest()
+        return m.hexdigest().upper()
 
 
 def getSHA256(path):
@@ -30,7 +30,7 @@ def getSHA256(path):
         for chunk in iter(lambda: fr.read(m.block_size * 128), b''):
             m.update(chunk)
 
-        return m.hexdigest()
+        return m.hexdigest().upper()
 
 
 def encodeBase64(path):

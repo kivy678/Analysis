@@ -16,8 +16,38 @@
                 <li class="breadcrumb-item active" aria-current="page">App</li>
               </ol>
           </nav>
-          <h2 class="h4">All Orders</h2>
-          <p class="mb-0">Your web analytics dashboard template.</p>
+          <h2 class="h4">Sample Information</h2>
+          <p class="mb-0">You can select a sample and proceed with the analysis.</p>
+      </div>
+  </div>
+
+
+  <div class="table-settings mb-4">
+      <div class="row align-items-center justify-content-between">
+          <div class="col col-md-6 col-lg-3 col-xl-4">
+            <form id="upload-file" method="post" enctype="multipart/form-data">
+              <div class="mb-3">
+                <label for="formFile" class="form-label">Upload Sample</label>
+                <input class="form-control" name="file" type="file" id="formFile">
+                </div>
+            </form>
+          </div>
+          <div class="col-4 col-md-2 col-xl-1 ps-md-0 text-right">
+              <div class="btn-group">
+                  <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-1" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span class="icon icon-sm icon-gray pt-1">
+                          <span class="fas fa-cog"></span>
+                      </span>
+                      <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  <div class="dropdown-menu dropdown-menu-xs dropdown-menu-end pb-0">
+                      <span class="small ps-3 fw-bold text-dark">Show</span>
+                      <a class="dropdown-item d-flex fw-bold" href="#">10 <span class="icon icon-small ms-auto"><span class="fas fa-check"></span></span></a>
+                      <a class="dropdown-item fw-bold" href="#">20</a>
+                      <a class="dropdown-item fw-bold" href="#">30</a>
+                  </div>
+              </div>
+          </div>
       </div>
   </div>
 
@@ -27,29 +57,22 @@
           <thead>
               <tr>
                   <th>#</th>
-                  <th>Package Name</th>						
-                  <th>Current Time</th>
-                  <th>Analysis Time</th>
-                  <th>Name</th>
+                  <th>Package Name</th>
+                  <th>sha256</th>					              
+                  <th>Collection Time</th>
                   <th>Status</th>
                   <th>Action</th>
               </tr>
           </thead>
           <tbody>
               <!-- Item -->
+              {% for sample in sample_infor %}
               <tr>
-                  <td>
-                      <a href="#" class="fw-bold">
-                          456478
-                      </a>
-                  </td>
-                  <td>
-                      <span class="fw-normal">Platinum Subscription Plan</span>
-                  </td>
-                  <td><span class="fw-normal">1 May 2020</span></td>                        
-                  <td><span class="fw-normal">1 Jun 2020</span></td>
-                  <td><span class="fw-bold">$799,00</span></td>
-                  <td><span class="fw-bold text-warning">Due</span></td>
+                  <td><a href="#" class="fw-bold">{{ sample.id }}</a></td>
+                  <td><span class="fw-bold">{{ sample.pkg }}</span></td>
+                  <td><span class="fw-normal">{{ sample.sha256 }}</span></td>
+                  <td><span class="fw-normal">{{ sample.ctime }}</span></td>
+                  <td><span class="fw-bold text-success">{{ sample.status }}</span></td>
                   <td>
                       <div class="btn-group">
                           <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -66,37 +89,8 @@
                       </div>
                   </td>
               </tr>
-              <!-- Item -->
-              <tr>
-                  <td>
-                      <a href="#" class="fw-bold">
-                          456423
-                      </a>
-                  </td>
-                  <td>
-                      <span class="fw-normal">Platinum Subscription Plan</span>
-                  </td>
-                  <td><span class="fw-normal">1 Apr 2020</span></td>                        
-                  <td><span class="fw-normal">1 May 2020</span></td>
-                  <td><span class="fw-bold">$799,00</span></td>
-                  <td><span class="fw-bold text-success">Paid</span></td>
-                  <td>
-                      <div class="btn-group">
-                          <button class="btn btn-link text-dark dropdown-toggle dropdown-toggle-split m-0 p-0" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                              <span class="icon icon-sm">
-                                  <span class="fas fa-ellipsis-h icon-dark"></span>
-                              </span>
-                              <span class="sr-only">Toggle Dropdown</span>
-                          </button>
-                          <div class="dropdown-menu py-0">
-                              <a class="dropdown-item rounded-top" href="#"><span class="fas fa-eye me-2"></span>View Details</a>
-                              <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
-                              <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
-                          </div>
-                      </div>
-                  </td>
-              </tr> 
- 
+              {% endfor %}
+              
               <!-- Item -->                              
           </tbody>
       </table>
@@ -133,4 +127,29 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+<script type="text/javascript">
+
+$(document).on('change', '#formFile', function() {
+    var form_data = new FormData($('#upload-file')[0]);
+
+    $.ajax({
+        url: "/app",
+        contentType: false,
+        processData: false,
+        cache: false,
+        type: "POST",
+        data: form_data,
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+</script>
+{% endblock javascripts %}

@@ -8,7 +8,7 @@
           </div>
           <div class="d-block">
             <h2 class="h6">
-              {{ current_user.username }}
+              {{ current_user.username }} {{segment}}
             </h2>
             <a href="{{ url_for('base_blueprint.logout') }}" class="btn btn-secondary text-dark btn-xs"><span
                 class="me-2"><span class="fas fa-sign-out-alt"></span></span>Sign Out</a>
@@ -29,19 +29,19 @@
           </a>
         </li>
         <li class="nav-item {% if 'dashboard' in segment %} active {% endif %}">
-          <a href="/dashboard.html" class="nav-link">
+          <a href="/dashboard" class="nav-link">
             <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
             <span class="sidebar-text">Dashboard</span>
           </a>
         </li>
         <li class="nav-item {% if 'device' in segment %} active {% endif %}">
-          <a href="/device.html" class="nav-link">
+          <a href="/device" class="nav-link">
             <span class="sidebar-icon"><span class="fas fa-chart-pie"></span></span>
             <span class="sidebar-text">DeviceManager</span>
           </a>
         </li>
         <li class="nav-item {% if 'app' in segment %} active {% endif %}">
-          <a href="/app.html" class="nav-link">
+          <a href="/app" class="nav-link">
             <span class="sidebar-icon"><span class="fas fa-hand-holding-usd"></span></span>
             <span class="sidebar-text">AppManger</span>
           </a>

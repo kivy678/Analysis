@@ -2,23 +2,39 @@
 
 ###########################################################################################
 
-from datetime import datetime
+from datetime import datetime, timedelta
 
-from util.fsUtils import Join
+from util.fsUtils import *
 from util.parser import *
 
 from database.structure import STATUS
+from module.android.cmd import shell
 
+from common import getSharedPreferences
+from webConfig import SHARED_PATH
 
-###########################################################################################
+################################################################################
+
+sp                  = getSharedPreferences(SHARED_PATH)
+SAMPLE_DIR          = sp.getString('SAMPLE_DIR')
+TMP_DIR             = sp.getString('TMP_DIR')
+
+JADX_PATH           = sp.getString('JADX_PATH')
+
+################################################################################
 
 class APP_INFOR:
     def __init__(self):
-        self._fileName = None
-        self._decodePath = None
         self._sha256 = None
-        self._pkgName = None
+        self._pkg    = None
+        self._icon   = None
+        self._ctime  = None
+        self._parent = None
+        self._status = None
 
+    def __del__(self):
+        Delete(TMP_DIR)
+        DirCheck(TMP_DIR)
 
     def __getattr__(self, key):
         try:
@@ -26,24 +42,22 @@ class APP_INFOR:
         except KeyError as e:
             return None
 
+    def getResource(self, f):
+        app_path = Join(SAMPLE_DIR, f)
+        decomp_path = Join(TMP_DIR, f)
+        shell.runCommand(f'{JADX_PATH} -s -d {decomp_path} {app_path}')
+
+        return decomp_path
+
     def parser(self, p):
         if isinstance(p, XmlParser):
-            self._pkgName = p.parser('manifest', 'package')
-            applicatopmActivity = p.parser('application', 'android:name')
-
-            #data = {'pkg': self._pkgName, 'fileName': self._fileName, 'parent': 1, 'ctime': datetime.now(), 'status': STATUS.INIT.value}
-
+            self._pkg     = p.getPackageName()
+            self._icon    = p.getIconName()
+            self._ctime   = datetime.now().strftime("%Y-%m-%d")
+            self._status  = STATUS.INIT.value
 
         elif isinstance(p, JsonParser):
-            ManifestJson = p.parser()
-
-    @property
-    def decodePath(self):
-        return self._decodePath
-
-    @decodePath.setter
-    def decodePath(self, decodePath):
-        self._decodePath = decodePath
+            pass
 
     @property
     def sha256(self):
@@ -54,17 +68,29 @@ class APP_INFOR:
         self._sha256 = sha256
 
     @property
-    def pkgName(self):
-        return self._pkgName
-
-    @pkgName.setter
-    def pkgName(self, pkgName):
-        self._pkgName = pkgName
+    def pkg(self):
+        return self._pkg
 
     @property
-    def fileName(self):
-        return self._fileName
+    def icon(self):
+        return self._icon
 
-    @fileName.setter
-    def fileName(self, fileName):
-        self._fileName = fileName
+    @property
+    def ctime(self):
+        return self._ctime
+
+    @property
+    def parent(self):
+        return self._parent
+
+    @parent.setter
+    def parent(self, parent):
+        self._parent = parent
+
+    @property
+    def status(self):
+        return self._status
+
+    @status.setter
+    def status(self, status):
+        self._status = status
