@@ -1,39 +1,20 @@
 # -*- encoding: utf-8 -*-
-"""
-Copyright (c) 2019 - present AppSeed.us
-"""
 
-from app.home import blueprint
+##################################################################################################
+
+import glob
+
+from app.app import blueprint
 from flask import render_template, redirect, url_for, request
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
 
-from database.models import DEVICE
-from app import db
-
+##################################################################################################
 
 @blueprint.route('/<template>')
 @login_required
-def template(template):
-    """
-    form = {
-        'model': 'android2',
-        'cpu': 'x86',
-        'sdk': 'android-86',
-        'su': True,
-        'setup': True
-    }
-
-    user = DEVICE(**form)
-    db.session.add(user)
-    db.session.commit()
-    """
-
-    user = DEVICE.query.all()
-    for i in user:
-        print(i.cpu)
-
+def application(template):
     try:
 
         if not template.endswith( '.html' ):
@@ -41,6 +22,10 @@ def template(template):
 
         # Detect the current page
         segment = get_segment( request )
+
+        
+
+
 
         # Serve the file (if exists) from app/templates/FILE.html
         return render_template( template, segment=segment )

@@ -16,6 +16,8 @@ from util.fsUtils import *
 
 from webConfig import *
 
+from util.Logger import LOG
+
 ##################################################################################################
 
 for dirName in [LOGGER_PATH, SHARED_PATH_DIR]:
@@ -34,6 +36,7 @@ WORKING_DIR         = config['WORK'].get('WORKING_DIR')
 
 DATA_DIR            = Join(WORKING_DIR, 'data')
 TMP_DIR             = Join(WORKING_DIR, 'tmp')
+SAMPLE_DIR          = Join(WORKING_DIR, 'sample')
 
 ##################################################################################################
 

@@ -38,6 +38,7 @@ def device(template):
  
             return render_template( template, segment=segment,
                                               devices=devicesObject,
+                                              plist_dev=devicesObject[0].name,
                                               plist=pList,
                                               ldplayer=ldObject)
 
