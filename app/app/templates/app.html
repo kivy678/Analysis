@@ -53,12 +53,12 @@
 
 
   <div class="card card-body shadow-sm table-wrapper table-responsive">
-      <table class="table table-hover">
+      <table class="table table-hover" id="id-table-appinfor">
           <thead>
               <tr>
-                  <th>#</th>
-                  <th>Package Name</th>
-                  <th>sha256</th>					              
+                  <th></th>
+                  <th>sha256</th>
+                  <th>Package Name</th>                  			              
                   <th>Collection Time</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -69,8 +69,8 @@
               {% for sample in sample_infor %}
               <tr>
                   <td><a href="#" class="fw-bold">{{ sample.id }}</a></td>
-                  <td><span class="fw-bold">{{ sample.pkg }}</span></td>
-                  <td><span class="fw-normal">{{ sample.sha256 }}</span></td>
+                  <td><span class="fw-bold" id="sha256">{{ sample.sha256 }}</span></td>
+                  <td><span class="fw-normal">{{ sample.pkg }}</span></td>
                   <td><span class="fw-normal">{{ sample.ctime }}</span></td>
                   <td><span class="fw-bold text-success">{{ sample.status }}</span></td>
                   <td>
@@ -82,7 +82,7 @@
                               <span class="sr-only">Toggle Dropdown</span>
                           </button>
                           <div class="dropdown-menu py-0">
-                              <a class="dropdown-item rounded-top" href="#"><span class="fas fa-eye me-2"></span>View Details</a>
+                              <a class="dropdown-item rounded-top" id="id-a-viewdetails"><span class="fas fa-eye me-2"></span>View Details</a>
                               <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
                               <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
                           </div>
@@ -124,6 +124,8 @@
       </div>
   </div>
 
+
+
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
@@ -151,6 +153,14 @@ $(document).on('change', '#formFile', function() {
     });
 
 });
+
+$(document).on('click', '#id-a-viewdetails', function() {
+  var tr = $(this).closest("tr");
+  var sha256 = $(tr).find("td #sha256");
+  
+  location.href='/app/infor/' + sha256.text();
+});
+
 
 </script>
 {% endblock javascripts %}

@@ -22,9 +22,6 @@ from app.session import *
 @login_required
 def device():
     try:
-        segment = get_segment(request)
-        template = segment + '.html'
-
         # adb device
         if request.method == 'GET':
             devicesObject = [DEVICE_MANAGER.getPlatform(name=n) for n in getDeviceList()]
@@ -38,7 +35,7 @@ def device():
 
             setSession('DevName', pickle.dumps([dev.name for dev in devicesObject]))
  
-            return render_template( template, segment=segment,
+            return render_template('device.html', segment='device',
                                               devices=devicesObject,
                                               plist_dev=dev_name,
                                               plist=pList,
@@ -69,16 +66,3 @@ def device():
 
     except Exception as e:
         return render_template('page-500.html'), 500
-
-
-def get_segment(request):
-    try:
-        segment = request.path.split('/')[-1]
-
-        if segment == '':
-            segment = 'device'
-
-        return segment
-
-    except:
-        return None  

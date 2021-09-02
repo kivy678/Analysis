@@ -1,0 +1,252 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bootstrap tables</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Sample Information</h1>
+                <p class="mb-0">You can select a sample and proceed with the analysis.</p>
+            </div>
+            <div>
+                <a href="https://themesberg.com/docs/volt-bootstrap-5-dashboard/components/tables/" class="btn btn-outline-gray"><i class="far fa-question-circle me-1"></i> Bootstrap Tables Docs</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12 col-xl-8 mb-4">
+            <div class="row">
+                <div class="col-12 col-lg-6 mb-4">
+                    <div class="card border-light shadow-sm">
+                        <div class="card-header border-bottom border-light d-flex justify-content-between">
+                            <h2 class="h5 mb-0">Decompiler Menu</h2>
+                            <a href="#" class="btn btn-sm btn-secondary">See all</a>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-group list-group-flush list my--3">
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                      <div class="col-auto">
+                                          <div class="user-avatar">
+                                              <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
+                                          </div>
+                                      </div>
+                                      <div class="col-auto ms--2"><h4 class="h6 mb-0">UnZip</h4></div>
+                                      <div class="col text-right">
+                                        <a class="btn btn-sm btn-facebook" name="n-decodebtn" id="unzip">
+                                            <span class="me-1"><span class="fas fa-link"></span></span>
+                                            Decode
+                                        </a>
+                                      </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="user-avatar">
+                                            <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto ms--2"><h4 class="h6 mb-0">APKTool</h4></div>
+                                      <div class="col text-right">
+                                        <a class="btn btn-sm btn-facebook" name="n-decodebtn" id="apktool">
+                                            <span class="me-1"><span class="fas fa-link"></span></span>
+                                            Decode
+                                        </a>
+                                      </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                    <div class="col-auto">
+                                        <div class="user-avatar">
+                                            <img class="rounded-circle" alt="Image placeholder" src="/static/img/jadx-logo.png">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto ms--2"><h4 class="h6 mb-0">Jadx</h4></div>
+                                      <div class="col text-right">
+                                        <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="jadx" >
+                                            <span class="me-1"><span class="fas fa-link"></span></span>
+                                            Decode
+                                        </a>
+                                      </div>
+                                    </div>
+                                </li>
+  
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="user-avatar">
+                                                <img class="rounded-circle" alt="Image placeholder" src="/static/img/androg-logo.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto ms--2"><h4 class="h6 mb-0">Androguard</h4></div>
+                                        <div class="col text-right">
+                                          <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="androg">
+                                              <span class="me-1"><span class="fas fa-link"></span></span>
+                                              Decode
+                                          </a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="user-avatar">
+                                                <img class="rounded-circle" alt="Image placeholder" src="/static/img/unity-log.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto ms--2"><h4 class="h6 mb-0">IL2CPP</h4></div>
+                                        <div class="col text-right">
+                                          <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="il2cpp">
+                                              <span class="me-1"><span class="fas fa-link"></span></span>
+                                              Decode
+                                          </a>
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li class="list-group-item px-0">
+                                    <div class="row align-items-center">
+                                        <div class="col-auto">
+                                            <div class="user-avatar">
+                                                <img class="rounded-circle" alt="Image placeholder" src="/static/img/unity-log.png">
+                                            </div>
+                                        </div>
+                                        <div class="col-auto ms--2"><h4 class="h6 mb-0">MONO</h4></div>
+                                        <div class="col text-right">
+                                          <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="mono">
+                                              <span class="me-1"><span class="fas fa-link"></span></span>
+                                              Decode
+                                          </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+      <div class="card border-light shadow-sm mb-4">
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-centered table-nowrap mb-0 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">sha256</th>
+                              <th class="border-0">Package Name</th>
+                              <th class="border-0">Icon Name</th>
+                              <th class="border-0">Collection Time</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- Item -->
+                          {% for infor in app_infor %}
+                          <tr>
+                              <td class="border-0"><div><span class="h6">{{ infor.sha256 }}</span></div></td>
+                              <td class="border-0 fw-bold">{{ infor.pkg }}</td>
+                              <td class="border-0 text-danger">{{ infor.icon }}</td>
+                              <td class="border-0 fw-bold">{{ infor.ctime }}</td>
+                          </tr>
+                          {% endfor %}
+                          <!-- End of Item -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+      <div class="card border-light shadow-sm">
+          <div class="card-body">
+              <div class="table-responsive">
+                  <table class="table table-centered table-nowrap mb-0 rounded">
+                      <thead class="thead-light">
+                          <tr>
+                              <th class="border-0">sha256</th>
+                              <th class="border-0">Package Name</th>
+                              <th class="border-0">Icon Name</th>
+                              <th class="border-0">Collection Time</th>
+                              <th class="border-0">Parent</th>
+                              <th class="border-0">Widgets</th>
+                              <th class="border-0">Widgets Change</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <!-- Item -->
+                          {% for infor in app_infor %}
+                          <tr>
+                              <td class="border-0"><div><span class="h6">{{ infor.sha256 }}</span></div></td>
+                              <td class="border-0 fw-bold">{{ infor.pkg }}</td>
+                              <td class="border-0 text-danger">
+                                  <span class="fas fa-angle-down"></span>                                   
+                                  <span class="fw-bold">5</span>
+                              </td>
+                              <td class="border-0 fw-bold">
+                                  3 
+                              </td>
+                              <td class="border-0">
+                                  =
+                              </td>
+                              <td class="border-0 fw-bold">
+                                  32  
+                              </td>
+                              <td class="border-0 text-success">
+                                  <span class="fas fa-angle-up"></span>                                   
+                                  <span class="fw-bold">3</span>
+                              </td>
+                          </tr>
+                          {% endfor %}
+                          <!-- End of Item -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script type="text/javascript">
+
+$(document).on("click","a[name='n-decodebtn']", function() {
+    var id = $(this).attr('id');
+    var pathArray = window.location.pathname.split('/');
+    var sha256 = pathArray[pathArray.length-1]
+
+    $.ajax({
+        url: "/app/infor/" + sha256,
+        type: "POST",
+        data: {'decode': id},
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+
+});
+
+
+</script>
+{% endblock javascripts %}

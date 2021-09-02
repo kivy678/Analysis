@@ -13,6 +13,7 @@ from jinja2 import TemplateNotFound
 from flask import send_from_directory
 from werkzeug.utils import secure_filename
 
+from module.android.AppManager.decompiler import *
 from module.android.AppManager.app import APP_INFOR
 from util.parser import XmlParser
 
@@ -38,13 +39,10 @@ SAMPLE_DIR          = sp.getString('SAMPLE_DIR')
 @login_required
 def app():
     try:
-        segment = get_segment(request)
-        template = segment + '.html'
-
         sample_list = [BaseName(path) for path in glob.glob(Join(SAMPLE_DIR, '*'))]
 
         if request.method == 'GET':
-            return render_template(template, segment=segment,
+            return render_template('app.html', segment='app',
                                              sample_infor=APP.query.all())
         elif request.method == 'POST':
             f = request.files['file']
@@ -63,17 +61,23 @@ def app():
         return render_template('page-500.html'), 500
 
 
-def get_segment(request):
+@blueprint.route('/app/infor/<sha256>', methods=['GET', 'POST'])
+@login_required
+def infor(sha256):
     try:
-        segment = request.path.split('/')[-1]
+        if request.method == 'POST':
+            decode_tool = request.form.get('decode')
+            tool = {'unzip': runUnzip, 'apktool': runApktool, 'androg': runAndrog, 'jadx': runJadx}
+            tool[decode_tool](Join(SAMPLE_DIR, sha256))
 
-        if segment == '':
-            segment = 'device'
+        return render_template('infor.html', segment='infor', app_infor=APP.query.filter_by(sha256=sha256))
 
-        return segment
 
-    except:
-        return None  
+    except TemplateNotFound:
+        return render_template('page-404.html'), 404
+
+    except Exception as e:
+        return render_template('page-500.html'), 500
 
 
 def updateSample(f_path):
@@ -99,7 +103,3 @@ def updateSample(f_path):
     except Exception as e:
         print(e)
         db.session.rollback()
-
-
-
-

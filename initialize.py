@@ -38,6 +38,7 @@ WORKING_DIR         = config['WORK'].get('WORKING_DIR')
 DATA_DIR            = Join(WORKING_DIR, 'data')
 TMP_DIR             = Join(WORKING_DIR, 'tmp')
 SAMPLE_DIR          = Join(WORKING_DIR, 'sample')
+DECODE_DIR          = Join(WORKING_DIR, 'decode')
 
 ##################################################################################################
 
@@ -80,15 +81,15 @@ if __name__ == '__main__':
 
         Delete(WORKING_DIR)
 
-        for dirName in [WORKING_DIR, DATA_DIR, TMP_DIR, SAMPLE_DIR]:
+        for dirName in [WORKING_DIR, DATA_DIR, TMP_DIR, SAMPLE_DIR, DECODE_DIR]:
             DirCheck(dirName)
 
         ed = sp.edit()
         ed.putString('WORKING_DIR', WORKING_DIR)
         ed.putString('DATA_DIR', DATA_DIR)
-
         ed.putString('TMP_DIR', TMP_DIR)
         ed.putString('SAMPLE_DIR', SAMPLE_DIR)
+        ed.putString('DECODE_DIR', DECODE_DIR)
 
         ed.putString('JADX_PATH', JADX_PATH)
         ed.putString('IDA_PATH', IDA_PATH)
