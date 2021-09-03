@@ -15,6 +15,8 @@ from werkzeug.utils import secure_filename
 
 from module.android.AppManager.decompiler import *
 from module.android.AppManager.app import APP_INFOR
+from module.android.AppManager.controler import *
+
 from util.parser import XmlParser
 
 from util.Logger import LOG
@@ -31,6 +33,7 @@ from webConfig import SHARED_PATH
 
 sp                  = getSharedPreferences(SHARED_PATH)
 SAMPLE_DIR          = sp.getString('SAMPLE_DIR')
+DATA_DIR            = sp.getString('DATA_DIR')
 
 ################################################################################
 
@@ -65,19 +68,56 @@ def app():
 @login_required
 def infor(sha256):
     try:
-        if request.method == 'POST':
+        if request.method == 'GET':
+            return render_template('infor.html', segment='infor', app_infor=APP.query.filter_by(sha256=sha256))
+
+        elif request.method == 'POST':
+            tool = {'unzip': runUnzip, 'apktool': runApktool,'androg': runAndrog, 'jadx': runJadx,
+                    'install': appInstall, 'dbgmode': appDebugger}
+
             decode_tool = request.form.get('decode')
-            tool = {'unzip': runUnzip, 'apktool': runApktool, 'androg': runAndrog, 'jadx': runJadx}
-            tool[decode_tool](Join(SAMPLE_DIR, sha256))
 
-        return render_template('infor.html', segment='infor', app_infor=APP.query.filter_by(sha256=sha256))
+            if decode_tool in tool:
+                tool[decode_tool](Join(SAMPLE_DIR, sha256))
 
+            elif decode_tool == 'uninstall':
+                app = APP.query.filter_by(sha256=sha256).one()
+                appUninstall(app.pkg)
+            elif decode_tool == 'download':
+                app = APP.query.filter_by(sha256=sha256).one()
+                appDownload(app.pkg, Join(DATA_DIR, sha256))
+            elif decode_tool == 'debug':
+                dbg = request.form.get('set')
+                app = APP.query.filter_by(sha256=sha256).one()
+
+                if dbg == 'On':
+                    appSetDebug(app.pkg, True)
+                elif dbg == 'Off':
+                    appSetDebug(app.pkg, False)
+
+            return "OK"
 
     except TemplateNotFound:
         return render_template('page-404.html'), 404
 
     except Exception as e:
         return render_template('page-500.html'), 500
+
+
+@blueprint.route('/app/remove', methods=['POST'])
+@login_required
+def remove():
+    if request.method == 'POST':
+        sha256 = request.form.get('data')
+
+    try:
+        APP.query.filter_by(sha256=sha256).delete()
+        db.session.commit()
+    except Exception as e:
+        print(e)
+        db.session.rollback()
+
+    return "OK"
 
 
 def updateSample(f_path):

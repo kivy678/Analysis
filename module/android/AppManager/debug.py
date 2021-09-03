@@ -9,7 +9,7 @@ __all__=[
 import os
 from bs4 import BeautifulSoup
 
-from module.mobile.cmd import shell
+from module.android.cmd import shell
 
 from util.fsUtils import *
 from util.Logger import LOG
@@ -42,9 +42,8 @@ KEY_APK             = Join(DBG_DIR,         "signed.apk")
 ###########################################################################################
 
 def cleanDir():
-    for path in [DBG_DIR]:
-        Delete(path)
-        DirCheck(path)
+    Delete(TMP_DIR)
+    DirCheck(DBG_DIR)
 
 def readManifest():
     try:
@@ -68,14 +67,14 @@ def fileManger():
         return False
 
 
-def debugger(_path, force=False):
+def debugger(path, force=False):
     option = '-f' if force else ''
     cleanDir()
 
-    fdir, fileName = PathSplit(_path)
+    fdir, fileName = PathSplit(path)
     tmp_dst = Join(TMP_DIR, fileName)
 
-    Copy(_path, tmp_dst)
+    Copy(path, tmp_dst)
 
     LOG.info(f"{'[*]':<5}start decode: {fileName}")
 
@@ -94,7 +93,7 @@ def debugger(_path, force=False):
     shell.runCommand(cmd, java=True)
 
     f, ext = SplitExt(fileName)
-    signed_apk = Join(fdir, f+'_signed.apk')
+    signed_apk = Join(fdir, f+'_signed')
     Copy(KEY_APK, signed_apk)
 
     LOG.info(f"{'[*]':<5}File Clean")

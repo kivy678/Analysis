@@ -35,7 +35,7 @@ class DEVICE_INSTALLER():
         cmd = f"mkdir /data/local/tmp/.cache"
         shell.runCommand(cmd, shell=True)
 
-        cmd = f"echo '1' > /data/local/tmp/.cache/AndroidDevice"
+        cmd = f"touch /data/local/tmp/.cache/AndroidDevice"
         shell.runCommand(cmd, shell=True)
 
     def isCommit(self):

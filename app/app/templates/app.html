@@ -83,8 +83,8 @@
                           </button>
                           <div class="dropdown-menu py-0">
                               <a class="dropdown-item rounded-top" id="id-a-viewdetails"><span class="fas fa-eye me-2"></span>View Details</a>
-                              <a class="dropdown-item" href="#"><span class="fas fa-edit me-2"></span>Edit</a>
-                              <a class="dropdown-item text-danger rounded-bottom" href="#"><span class="fas fa-trash-alt me-2"></span>Remove</a>
+                              <a class="dropdown-item"><span class="fas fa-edit me-2"></span>Edit</a>
+                              <a class="dropdown-item text-danger rounded-bottom" id="id-a-remove"><span class="fas fa-trash-alt me-2"></span>Remove</a>
                           </div>
                       </div>
                   </td>
@@ -155,11 +155,33 @@ $(document).on('change', '#formFile', function() {
 });
 
 $(document).on('click', '#id-a-viewdetails', function() {
-  var tr = $(this).closest("tr");
-  var sha256 = $(tr).find("td #sha256");
-  
-  location.href='/app/infor/' + sha256.text();
+    var tr = $(this).closest("tr");
+    var sha256 = $(tr).find("td #sha256");
+
+    location.href='/app/infor/' + sha256.text();
 });
+
+
+$(document).on('click', '#id-a-remove', function() {
+    var tr = $(this).closest("tr");
+    var sha256 = $(tr).find("td #sha256");
+
+    $.ajax({
+        url: "/app/remove",
+        type: "POST",
+        async: false,
+        data: {'data': sha256.text()},
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+            location.reload();
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+});
+
 
 
 </script>

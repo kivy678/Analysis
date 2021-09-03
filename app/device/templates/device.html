@@ -44,7 +44,7 @@
                                 {% if device.set == False %}
                                 <td>
                                     <div class="col text">
-                                    <button type="button" class="btn btn-sm btn-outline-dark" id="id_set_btn">SET</button>
+                                    <button type="button" class="btn btn-sm btn-dark" id="id_set_btn">SET</button>
                                     </div>
                                 </td>
                                 {% else %}
@@ -203,6 +203,7 @@ $(document).on('click', '#ld_run_btn', function() {
     $.ajax({
         url: "/device",
         type: "POST",
+        async: false,
         traditional : true,
         data: {"model": model},
 
@@ -225,6 +226,7 @@ $(document).on('click', '#id_set_btn', function() {
     $.ajax({
         url: "/device",
         type: "POST",
+        async: false,
         data: {"set": true},
 
         success: function(response) {

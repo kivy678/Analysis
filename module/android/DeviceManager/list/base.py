@@ -73,6 +73,7 @@ class DEVICE_MANAGER(DEVICE_BASIS):
         super().__init__(*args, **kwargs)
         self._installer = DEVICE_INSTALLER(self.arch, self.sdk)
         self._set       = self._installer.isCommit()
+        print(self._set)
 
     def install(self):
         if self.set is False:

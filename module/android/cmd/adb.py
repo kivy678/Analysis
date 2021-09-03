@@ -2,8 +2,10 @@
 
 #############################################################################
 
-from module.android.cmd import shell
 import re
+
+from module.android.cmd import shell
+from util.fsUtils import Join
 
 #############################################################################
 
@@ -11,6 +13,9 @@ __all__ = [
     "adbDevices",
     "getDeviceList",
     "adbRestart",
+    "apkInstall",
+    "apkUnInstall",
+    "apkDownload",
     "getModel",
     "getSystem",
     "getSdk",
@@ -31,7 +36,36 @@ def getDeviceList():
 def adbRestart():
     shell.runCommand("adb kill-server")
     shell.runCommand("adb start-server")
-    return None
+    return True
+
+#############################################################################
+
+def apkInstall(path):
+    shell.runCommand(f"adb install -r {path}")
+    return True
+
+def apkUnInstall(pkg):
+    shell.runCommand(f"adb uninstall {pkg}")
+    return True
+
+def apkDownload(pkg, path):
+    shell.runCommand(f"adb pull /data/app/{pkg}-1 {path}")
+    return Join(path, 'base.apk')
+
+#############################################################################
+
+def setDebug(package, dbg):
+    cmd = f"am force-stop {package}"
+    shell.runCommand(cmd, shell=True)
+
+    cmd = f"pm clear {package}"
+    shell.runCommand(cmd, shell=True)
+
+    mode = "set" if dbg else "clear"
+    option = "-w" if dbg else ""
+
+    cmd = f"am {mode}-debug-app {option} {package}"
+    shell.runCommand(cmd, shell=True)
 
 #############################################################################
 
