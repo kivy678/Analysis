@@ -9,6 +9,7 @@ __all__=[
 
 ##################################################################################################
 
+import os
 from datetime import timedelta
 
 from flask import session, escape
@@ -23,11 +24,15 @@ sess = Session()
 ##################################################################################################
 
 def setup(app):
-    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(minutes=60)
-    app.config['SESSION_FILE_THRESHOLD'] = 500
+    app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=60)
+    app.config['SESSION_FILE_THRESHOLD'] = 1000
 
     app.config['SESSION_TYPE'] = "filesystem"
     app.config['SESSION_FILE_DIR'] = FLASK_SESSION
+
+    app.config['SESSION_USE_SIGNER'] = True
+    app.config['SECRET_KEY'] = os.urandom(24)
+    app.config['SESSION_KEY_PREFIX'] = 'session'
 
     sess.init_app(app)
 

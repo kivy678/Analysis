@@ -12,15 +12,10 @@ from module.android.AppManager.controler import *
 from module.android.AppManager.debug import *
 
 
-
-
-path = Join(SAMPLE_DIR, '4f21454e04037b3fe3b78808c01edeff50c5db680b42c879888cbe2d4de5f2c7')
+path = Join(SAMPLE_DIR, 'grow-castle-mod_1.24.2-android-1.com.apk')
 
 #appInstall(path)
 #appUninstall('com.yeecall')
 #p = appDownload('com.yeecall', path)
 #print(p)
-
-
-debugger(path)
-
+#debugger(path)

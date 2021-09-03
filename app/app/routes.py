@@ -52,7 +52,9 @@ def app():
             f_path = Join(SAMPLE_DIR, secure_filename(f.filename))
             f.save(f_path)
 
+            LOG.info(f"{'[*]':<5}Start Update Sample")
             updateSample(f_path)
+            LOG.info(f"{'[*]':<5}End Update Sample")
             #Delete(f_path)
 
             return "OK"
@@ -83,9 +85,11 @@ def infor(sha256):
             elif decode_tool == 'uninstall':
                 app = APP.query.filter_by(sha256=sha256).one()
                 appUninstall(app.pkg)
+
             elif decode_tool == 'download':
                 app = APP.query.filter_by(sha256=sha256).one()
                 appDownload(app.pkg, Join(DATA_DIR, sha256))
+
             elif decode_tool == 'debug':
                 dbg = request.form.get('set')
                 app = APP.query.filter_by(sha256=sha256).one()

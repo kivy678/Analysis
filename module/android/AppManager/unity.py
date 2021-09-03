@@ -9,7 +9,7 @@ __all__ = [
 
 from util.fsUtils import *
 
-from module.mobile.cmd import shell
+from module.android.cmd import shell
 
 from common import getSharedPreferences
 from webConfig import SHARED_PATH
@@ -31,9 +31,9 @@ FILTER_LIST         = ["Assembly-CSharp.csproj", "Assembly-CSharp.sln", "Assembl
 
 #############################################################################
 
-def clean(_path):
-    Delete(_path)
-    DirCheck(_path)
+def clean(path):
+    Delete(path)
+    DirCheck(path)
 
 
 def searchFile(dir, fileName):
@@ -42,30 +42,30 @@ def searchFile(dir, fileName):
             return i
 
 
-def isIl2cpp(_path):
-    if searchFile(Join(_path, 'lib'), IL2CPP_FILE):
+def isIl2cpp(path):
+    if searchFile(Join(path, 'lib'), IL2CPP_FILE):
         return True
     else:
         return False
 
 
-def isMono(_path):
-    if searchFile(Join(_path, 'assets'), CSHARP_FILE):
+def isMono(path):
+    if searchFile(Join(path, 'assets'), CSHARP_FILE):
         return True
     else:
         return False
 
 
-def runDecodeMono(_path, fileName):
+def runDecodeMono(path, fileName):
     out = Join(DECODE_DIR, fileName, 'mono')
     clean(out)
 
-    if isMono(_path):
+    if isMono(path):
         LOG.info(f"{'[*]':<5}Start mono Decode: {fileName}")
 
-        csharp_path = searchFile(Join(_path, r'assets\bin\Data\Managed'), CSHARP_FILE)
+        csharppath = searchFile(Join(path, r'assets\bin\Data\Managed'), CSHARP_FILE)
 
-        cmd = f"{JUST_DECOMPILE_PATH} /lang:csharp /out:{out} /target:{csharp_path}"
+        cmd = f"{JUST_DECOMPILE_PATH} /lang:csharp /out:{out} /target:{csharppath}"
         shell.runCommand(cmd)
 
         for name in FILTER_LIST:
@@ -73,26 +73,27 @@ def runDecodeMono(_path, fileName):
 
         LOG.info(f"{'[*]':<5}End mono Decode: {fileName}")
 
-        return csharp_path
+        return csharppath
 
     return None
 
 
-def runDecodeil2cpp(_path, fileName):
+def runDecodeil2cpp(path, fileName):
     out = Join(DECODE_DIR, fileName, 'il2cpp')
     clean(out)
 
-    if isIl2cpp(_path):
+    if isIl2cpp(path):
         LOG.info(f"{'[*]':<5}Start il2cpp Decode: {fileName}")
 
-        lib_path = searchFile(Join(_path, 'lib'), IL2CPP_FILE)
-        global_metadata_path = searchFile(Join(_path, r'assets\bin\Data\Managed\Metadata'), GLOBAL_META)
+        libpath = searchFile(Join(path, 'lib'), IL2CPP_FILE)
+        global_metadatapath = searchFile(Join(path, r'assets\bin\Data\Managed\Metadata'), GLOBAL_META)
 
-        cmd = f"{IL2CPP_DUMPER_PATH} {lib_path} {global_metadata_path} {out}"
+        cmd = f"{IL2CPP_DUMPER_PATH} {libpath} {global_metadatapath} {out}"
+        print(cmd)
         shell.runCommand(cmd)
 
         LOG.info(f"{'[*]':<5}End il2cpp Decode: {fileName}")
 
-        return lib_path
+        return libpath
 
     return None

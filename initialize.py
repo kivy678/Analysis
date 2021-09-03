@@ -53,6 +53,8 @@ ed.commit()
 ##################################################################################################
 
 JADX_PATH           = config['TOOL'].get('JADX')
+JUST_DECOMPILE_PATH = config['TOOL'].get('JUST_DECOMPILE')
+IL2CPP_DUMPER_PATH  = config['TOOL'].get('IL2CPP_DUMPER')
 IDA_PATH            = config['TOOL'].get('IDA')
 
 ##################################################################################################
@@ -93,6 +95,8 @@ if __name__ == '__main__':
 
         ed.putString('JADX_PATH', JADX_PATH)
         ed.putString('IDA_PATH', IDA_PATH)
+        ed.putString('JUST_DECOMPILE_PATH', JUST_DECOMPILE_PATH)
+        ed.putString('IL2CPP_DUMPER_PATH', IL2CPP_DUMPER_PATH)
 
         ed.putBoolean('INIT_SETTING', True)
         ed.commit()
