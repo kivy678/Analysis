@@ -32,9 +32,9 @@
                     <div class="card border-light shadow-sm">
                         <div class="card-header border-bottom border-light d-flex justify-content-between">
                             <h2 class="h5 mb-0">Decompiler Menu</h2>
-                            <a href="#" class="btn btn-sm btn-secondary">See all</a>
+                            <button type="button" class="btn btn-sm btn-secondary" id="id-decompiler-menu-btn" onClick="toggleDiv()">See all</button>
                         </div>
-                        <div class="card-body">
+                        <div class="card-body" id="id-decompiler-menu" style="display: none">
                             <ul class="list-group list-group-flush list my--3">
                                 <li class="list-group-item px-0">
                                     <div class="row align-items-center">
@@ -47,8 +47,7 @@
                                       <div class="col text-right">
                                         <a class="btn btn-sm btn-facebook" name="n-decodebtn" id="unzip">
                                             <span class="me-1"><span class="fas fa-link"></span></span>
-                                            Decode
-                                        </a>
+                                            Decode</a>
                                       </div>
                                     </div>
                                 </li>
@@ -63,8 +62,7 @@
                                       <div class="col text-right">
                                         <a class="btn btn-sm btn-facebook" name="n-decodebtn" id="apktool">
                                             <span class="me-1"><span class="fas fa-link"></span></span>
-                                            Decode
-                                        </a>
+                                            Decode</a>
                                       </div>
                                     </div>
                                 </li>
@@ -79,8 +77,7 @@
                                       <div class="col text-right">
                                         <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="jadx" >
                                             <span class="me-1"><span class="fas fa-link"></span></span>
-                                            Decode
-                                        </a>
+                                            Decode</a>
                                       </div>
                                     </div>
                                 </li>
@@ -96,8 +93,7 @@
                                         <div class="col text-right">
                                           <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="androg">
                                               <span class="me-1"><span class="fas fa-link"></span></span>
-                                              Decode
-                                          </a>
+                                              Decode</a>
                                         </div>
                                     </div>
                                 </li>
@@ -113,8 +109,7 @@
                                         <div class="col text-right">
                                           <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="il2cpp">
                                               <span class="me-1"><span class="fas fa-link"></span></span>
-                                              Decode
-                                          </a>
+                                              Decode</a>
                                         </div>
                                     </div>
                                 </li>
@@ -130,8 +125,7 @@
                                         <div class="col text-right">
                                           <a href="#" class="btn btn-sm btn-facebook" name="n-decodebtn" id="mono">
                                               <span class="me-1"><span class="fas fa-link"></span></span>
-                                              Decode
-                                          </a>
+                                              Decode</a>
                                         </div>
                                     </div>
                                 </li>
@@ -229,7 +223,14 @@
 $(document).on("click","a[name='n-decodebtn']", function() {
     var id = $(this).attr('id');
     var pathArray = window.location.pathname.split('/');
-    var sha256 = pathArray[pathArray.length-1]
+    var sha256 = pathArray[pathArray.length-1];
+
+    var link_class = $(this).find('span span');
+    var link_org_class_name = link_class.attr('class');
+    var loading_class_name = "spinner-border spinner-border-sm";
+
+    link_class.attr('class', loading_class_name);
+
 
     $.ajax({
         url: "/app/infor/" + sha256,
@@ -238,15 +239,24 @@ $(document).on("click","a[name='n-decodebtn']", function() {
 
         success: function(response) {
             console.log("SUCCESS: " + response);
+            link_class.attr('class', link_org_class_name);
         },
         error: function(error) {
             console.log("ERROR: " + error);
         }
     });
 
-
 });
 
+function toggleDiv() {
+    var decpMenu = document.getElementById("id-decompiler-menu");
+
+    if (decpMenu.style.display === "none") {
+        decpMenu.style.display = "block";
+    } else {
+        decpMenu.style.display = "none";
+    }
+}
 
 </script>
 {% endblock javascripts %}
