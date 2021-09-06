@@ -89,7 +89,6 @@ def runDecodeil2cpp(path, fileName):
         global_metadatapath = searchFile(Join(path, r'assets\bin\Data\Managed\Metadata'), GLOBAL_META)
 
         cmd = f"{IL2CPP_DUMPER_PATH} {libpath} {global_metadatapath} {out}"
-        print(cmd)
         shell.runCommand(cmd)
 
         LOG.info(f"{'[*]':<5}End il2cpp Decode: {fileName}")

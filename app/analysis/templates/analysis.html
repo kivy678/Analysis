@@ -1,0 +1,197 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Analysis</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">Analysis</h1>
+                <p class="mb-0">You can select a sample</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-header border-bottom border-light d-flex justify-content-between">
+                    <h2 class="h5 mb-0">Static Analysis Menu</h2>
+                    <button type="button" class="btn btn-sm btn-secondary" onClick="toggleDiv('id-decompiler-menu')">See all</button>
+                </div>
+                <div class="card-body" id="id-decompiler-menu" style="display: none">
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto">
+                                  <div class="user-avatar">
+                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
+                                  </div>
+                              </div>
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Disasambly</h4></div>
+                              <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-facebook" name="n-decodebtn" id="disasambly" onClick="toggleDiv('id-opcode-input')">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    View</button>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto">
+                                  <div class="user-avatar">
+                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
+                                  </div>
+                              </div>
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">ELF Format</h4></div>
+                              <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-facebook" name="n-decodebtn" id="disasambly" onClick="toggleDiv('id-opcode-input')">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    View</button>
+                              </div>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+      
+
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-header border-bottom border-light d-flex justify-content-between">
+                    <h2 class="h5 mb-0">Dynamic Analysis Menu</h2>
+                    <button type="button" class="btn btn-sm btn-secondary" onClick="toggleDiv('id-control-menu')">See all</button>
+                </div>
+                <div class="card-body" id="id-control-menu" style="display: none">
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Install</h4></div>
+                              <div class="col text-right">
+                                <a class="btn btn-sm btn-facebook" name="n-decodebtn" id="install">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    Run</a>
+                              </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="col" id="id-opcode-input" style="display: none">
+                <label for="textarea">Input Opcode</label>
+                <textarea class="form-control" placeholder="Enter your Opcode..." id="id-opcodeText" rows="2"></textarea>
+                
+                <fieldset>
+                    <legend class="h6">Platform</legend>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="n-arch-input" value="ARM" checked>
+                        <label class="form-check-label" for="exampleRadios1">ARM</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="n-arch-input" value="ARM64">
+                        <label class="form-check-label" for="exampleRadios2">ARM64</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="n-arch-input" value="THUMB">
+                        <label class="form-check-label" for="exampleRadios2">THUMB</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="n-arch-input" value="X86">
+                        <label class="form-check-label" for="exampleRadios2">X86</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="n-arch-input" value="X64">
+                        <label class="form-check-label" for="exampleRadios2">X64</label>
+                    </div>
+                </fieldset>
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-sm btn-dark" name="n-send-btn">Send</button>
+                </div>
+            </div>
+
+
+        
+        </div>
+
+    </div>
+
+    <div class="card border-light shadow-sm mb-4">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0 rounded">
+                    <thead class="thead-light">
+                        <tr>
+                            <th class="border-0">Text Viewer</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border-0"><pre class="h6" id="view_content" style="display: block"></pre></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script type="text/javascript">
+$(document).on("click","button[name=n-send-btn]", function() {
+    var arch = $('input[name=n-arch-input]:checked').val();
+    var text = $('#id-opcodeText').val();
+
+    $.ajax({
+        url: "/analysis/disasm",
+        type: "GET",
+        data: {"arch": arch, "text": text},
+
+        success: function(response) {
+            console.log("SUCCESS: ");
+            var opcodeInputMenu = document.getElementById('id-opcode-input');
+            opcodeInputMenu.style.display = "none";
+            $("#view_content").text(response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+
+function toggleDiv(cName) {
+    var decpMenu = document.getElementById(cName);
+
+    if (decpMenu.style.display === "none") {
+        decpMenu.style.display = "block";
+    } else {
+        decpMenu.style.display = "none";
+    }
+}
+
+
+</script>
+{% endblock javascripts %}

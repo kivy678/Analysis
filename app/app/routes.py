@@ -34,6 +34,7 @@ from webConfig import SHARED_PATH
 sp                  = getSharedPreferences(SHARED_PATH)
 SAMPLE_DIR          = sp.getString('SAMPLE_DIR')
 DATA_DIR            = sp.getString('DATA_DIR')
+DECODE_DIR          = sp.getString('DECODE_DIR')
 
 ################################################################################
 
@@ -89,6 +90,14 @@ def infor(sha256):
             elif decode_tool == 'download':
                 app = APP.query.filter_by(sha256=sha256).one()
                 appDownload(app.pkg, Join(DATA_DIR, sha256))
+
+            elif decode_tool == 'mono':
+                dst = Join(DECODE_DIR, sha256, 'unzip')
+                runMono(dst, sha256)
+
+            elif decode_tool == 'il2cpp':
+                dst = Join(DECODE_DIR, sha256, 'unzip')
+                runIl2cpp(dst, sha256)
 
             elif decode_tool == 'debug':
                 dbg = request.form.get('set')

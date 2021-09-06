@@ -93,19 +93,18 @@ def runApktool(path) -> str:
 
 
 def runMono(path, fileName) -> str:
-    #fileName = BaseName(path)
     dst = Join(DECODE_DIR, fileName, 'mono')
     DirCheck(dst)
 
     LOG.info(f"{'[*]':<5}Start mono: {fileName}")
-    runDecodeil2cpp(path, fileName)
+    runDecodeMono(path, fileName)
 
     LOG.info(f"{'[*]':<5}End mono: {fileName}")
 
     return dst
 
+
 def runIl2cpp(path, fileName) -> str:
-    #fileName = BaseName(path)
     dst = Join(DECODE_DIR, fileName, 'il2cpp')
     DirCheck(dst)
 

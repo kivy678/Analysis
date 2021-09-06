@@ -30,3 +30,18 @@ TOOL_PATH       = Join(VAR_PATH, "tool")
 TOOL_USER_PATH  = Join(VAR_PATH, "user")
 
 #############################################################################
+
+REDIS_IP        = '127.0.0.1'
+REDIS_PORT      = 6379
+REDIS_PASSWD    = ''
+
+REDIS_SESSION_CONFIG = {
+    'host'              : REDIS_IP,
+    'port'              : REDIS_PORT,
+    #'password'          : REDIS_PASSWD,
+    'db'                : 1,
+    'max_connections'   : 50,
+    'encoding'          : 'utf-8'
+}
+
+#############################################################################
