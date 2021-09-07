@@ -2,7 +2,7 @@
 
 #############################################################################
 
-import glob
+import glob, os
 
 from app.app import blueprint
 from flask import render_template, redirect, url_for, request
@@ -29,6 +29,8 @@ from app import db
 from common import getSharedPreferences
 from webConfig import SHARED_PATH
 
+from app.session import setSession
+
 ################################################################################
 
 sp                  = getSharedPreferences(SHARED_PATH)
@@ -53,10 +55,12 @@ def app():
             f_path = Join(SAMPLE_DIR, secure_filename(f.filename))
             f.save(f_path)
 
+            NewName = Join(SAMPLE_DIR, getSHA256(f_path))
+            os.rename(f_path, NewName)
+
             LOG.info(f"{'[*]':<5}Start Update Sample")
-            updateSample(f_path)
+            updateSample(NewName)
             LOG.info(f"{'[*]':<5}End Update Sample")
-            #Delete(f_path)
 
             return "OK"
 
@@ -70,6 +74,10 @@ def app():
 @blueprint.route('/app/infor/<sha256>', methods=['GET', 'POST'])
 @login_required
 def infor(sha256):
+    app = APP.query.filter_by(sha256=sha256).one()
+    setSession('pkgName', app.pkg)
+    setSession('sha256', sha256)
+
     try:
         if request.method == 'GET':
             return render_template('infor.html', segment='infor', app_infor=APP.query.filter_by(sha256=sha256))
