@@ -1,5 +1,7 @@
 requests
 pymemcache
+simplejson
+hurry.filesize
 flask==1.1.2
 flask_login==0.5.0
 flask_migrate==2.7.0
