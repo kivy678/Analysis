@@ -33,11 +33,6 @@
                     <ul class="list-group list-group-flush list my--3">
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto">
-                                  <div class="user-avatar">
-                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
-                                  </div>
-                              </div>
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">Disasambly</h4></div>
                               <div class="col text-right">
                                 <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="disasambly" onClick="toggleDiv('id-opcode-input')">
@@ -48,11 +43,6 @@
                         </li>
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto">
-                                  <div class="user-avatar">
-                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
-                                  </div>
-                              </div>
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">ELF Format</h4></div>
                               <div class="col text-right">
                                 <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="format" onClick="toggleDiv('id-format-input')">
@@ -63,11 +53,6 @@
                         </li>
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto">
-                                  <div class="user-avatar">
-                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
-                                  </div>
-                              </div>
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">IDA Analysis</h4></div>
                               <div class="col text-right">
                                 <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="ida" onClick="toggleDiv('id-ida-input')">
@@ -78,11 +63,6 @@
                         </li>
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto">
-                                  <div class="user-avatar">
-                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
-                                  </div>
-                              </div>
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">IDA(IL2CPP) Analysis</h4></div>
                               <div class="col text-right">
                                 <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="ida-il2cpp">
@@ -93,11 +73,6 @@
                         </li>
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto">
-                                  <div class="user-avatar">
-                                      <img class="rounded-circle" alt="Image placeholder" src="/static/img/zip-log.png">
-                                  </div>
-                              </div>
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">IL2CPP Dumper</h4></div>
                               <div class="col text-right">
                                 <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="il2cpp" onClick="toggleDiv('id-il2cpp-input')">
@@ -106,8 +81,6 @@
                               </div>
                             </div>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
@@ -124,16 +97,45 @@
                     <ul class="list-group list-group-flush list my--3">
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Install</h4></div>
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Dynamic Settings</h4></div>
                               <div class="col text-right">
-                                <a class="btn btn-sm btn-facebook" name="n-viewbtn" id="install">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="settings">
                                     <span class="me-1"><span class="fas fa-link"></span></span>
                                     Run</a>
                               </div>
                             </div>
                         </li>
-
                     </ul>
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Strace</h4></div>
+                              <div class="col text-right">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="strace">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    Run</a>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Install</h4></div>
+                              <div class="col text-right">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="install">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    Run</a>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
+
+
+
+
+
+
                 </div>
             </div>
         </div>
@@ -453,7 +455,21 @@ $(document).on("click","#id-il2cpp-send-btn", function() {
 
 });
 
+$(document).on("click","#settings", function() {
+    $.ajax({
+        url: "/analysis/settings",
+        type: "GET",
 
+        success: function(response) {
+            console.log("SUCCESS: ");
+            $("#view_content").text(response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
 
 
 

@@ -19,7 +19,6 @@ from werkzeug.utils import secure_filename
 from common import getSharedPreferences
 from webConfig import *
 
-import disassemble
 import elfformat
 from app.session import getSession
 
@@ -28,6 +27,9 @@ from util.hash import getMD5
 
 from module.ipython.convES.pretreatment import pushES
 from module.ipython.convES.scriptjs import parserScriptJson
+
+from app.analysis.getLib import *
+from module.android.Analysis.server import *
 
 ################################################################################
 
@@ -46,9 +48,11 @@ RUN_IL2CPP_PATH     = Join(BASE_DIR, "module", "ipython", "run_il2cpp.bat")
 def analysis():
     try:
         if request.method == 'GET':
+            sha256 = getSession('sha256')
+
             return render_template('analysis.html', segment='analysis',
-                                                    lib_list=lib_List(),
-                                                    ida_list=ida_List())
+                                                    lib_list=lib_List(sha256),
+                                                    ida_list=ida_List(sha256))
 
     except TemplateNotFound:
         return render_template('page-404.html'), 404
@@ -165,52 +169,19 @@ def il2cpp():
 
         return "Success"
 
-def lib_List():
-    data = list()
-    sha256 = getSession('sha256')
+@blueprint.route('/analysis/settings', methods=['GET'])
+@login_required
+def settings():
+    if request.method == 'GET':
+        dynamicServer()
 
-    if sha256 is None:
-        return []
+        return "Success"
 
-    analysis_path = Join(DECODE_DIR, sha256, 'unzip')
 
-    for path in Walk(analysis_path):
-        p = BaseName(path)
+@blueprint.route('/analysis/strace', methods=['GET'])
+@login_required
+def strace():
+    if request.method == 'GET':
+        dynamicServer()
 
-        if SplitExt(p)[1] == ".so":
-            data.append(path)
-
-    data = map(lambda x: x.replace(analysis_path, '')[1:], data)
-    return data
-
-def ida_List():
-    data = list()
-    sha256 = getSession('sha256')
-
-    if sha256 is None:
-        return []
-
-    analysis_path = Join(DECODE_DIR, sha256, 'unzip')
-
-    for _path in Walk(analysis_path):
-        p = PathSplit(_path)[1]
-        ext = SplitExt(p)[1]
-
-        if p == "libil2cpp.so":
-            continue
-        elif ext == ".so":
-            data.append(_path)
-
-    data = map(lambda x: (x.replace(analysis_path, '')[1:], convSize(FileSize(x), system=alternative)), data)
-    return data
-
-def fetch_disasm(arch, text):
-    opcode = ''.join([f"\\x{opcode}" for opcode in text.split()]).encode()
-    opcode = opcode.decode('unicode-escape').encode('ISO-8859-1')
-
-    return getattr(disassemble, f'disasm{arch}')(opcode)
-
-def findFile(dir, fileName):
-    for _path in Walk(dir):
-        if PathSplit(_path)[1] == fileName:
-            return _path
+        return "Success"
