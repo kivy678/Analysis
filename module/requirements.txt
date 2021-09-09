@@ -1,1 +1,11 @@
 androguard
+frida-tools==5.4.0
+frida==12.7.15
+yara-python==4.0.1
+psutil==5.7.0
+pyspark==2.4.5
+plotly==4.8.1
+plotly_express==0.4.1
+chart-studio==1.1.0
+pillow==7.2.0
+cufflinks==0.17.3

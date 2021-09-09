@@ -31,11 +31,17 @@ from module.ipython.convES.scriptjs import parserScriptJson
 from app.analysis.getLib import *
 from module.android.Analysis.server import *
 
+from module.android.Analysis.trace import StraceManager
+
+from module.spark.strace_filter import runSpark
+from module.spark.view import getStatitics
+
 ################################################################################
 
 sp                  = getSharedPreferences(SHARED_PATH)
 DECODE_DIR          = sp.getString('DECODE_DIR')
 DATA_DIR            = sp.getString("DATA_DIR")
+ANALYSIS_DIR        = sp.getString("ANALYSIS_DIR")
 
 RUN_PATH            = Join(BASE_DIR, "module", "ipython", "run.bat")
 RUN_IL2CPP_PATH     = Join(BASE_DIR, "module", "ipython", "run_il2cpp.bat")
@@ -177,11 +183,28 @@ def settings():
 
         return "Success"
 
-
 @blueprint.route('/analysis/strace', methods=['GET'])
 @login_required
 def strace():
-    if request.method == 'GET':
-        dynamicServer()
+    pkg = getSession('pkgName')
+    sha256 = getSession('sha256')
 
-        return "Success"
+    if pkg is None:
+        return 'Choose a package'
+
+    if request.method == 'GET':
+        flag = request.args.get("flag")
+        trace = StraceManager()
+
+        if flag == 'on':
+            if trace.setProcess(pkg) is False:
+                return f"Not Running {pkg}"
+            else:
+                trace.start()
+                return "Strace Dumping..."
+        else:
+            dump_path = trace.straceStop()
+            runSpark(dump_path, sha256)
+            getStatitics(Join(ANALYSIS_DIR, 'dump.csv'))
+
+            return "Success"

@@ -111,7 +111,27 @@
                             <div class="row align-items-center">
                               <div class="col-auto ms--2"><h4 class="h6 mb-0">Strace</h4></div>
                               <div class="col text-right">
-                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="strace">
+                                <div class="btn-group">
+                                    <button type="button" class="btn btn-sm btn-facebook" name="n-strace-btn" id="id-on-btn">
+                                        <span class="me-1"><span class="spinner-border spinner-border-sm" id="id-on-span" style="display: none"></span></span>
+                                        <span id="id-strace-on" style="display: inline">On</span>
+                                    </button>
+
+                                    <button type="button" class="btn btn-sm btn-facebook" name="n-strace-btn" id="id-off-btn">
+                                        <span class="me-1"><span class="spinner-border spinner-border-sm" id="id-off-span" style="display: none"></span></span>
+                                        <span id="id-strace-off" style="display: inline">Off</span>
+                                    </button>
+                                </div>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Memory Dump</h4></div>
+                              <div class="col text-right">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="memory">
                                     <span class="me-1"><span class="fas fa-link"></span></span>
                                     Run</a>
                               </div>
@@ -121,19 +141,27 @@
                     <ul class="list-group list-group-flush list my--3">
                         <li class="list-group-item px-0">
                             <div class="row align-items-center">
-                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Install</h4></div>
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Packer Dump</h4></div>
                               <div class="col text-right">
-                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="install">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="packer">
                                     <span class="me-1"><span class="fas fa-link"></span></span>
                                     Run</a>
                               </div>
                             </div>
                         </li>
                     </ul>
-
-
-
-
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Yara Search</h4></div>
+                              <div class="col text-right">
+                                <a class="btn btn-sm btn-facebook" name="n-runbtn" id="yara">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                    Run</a>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
 
 
                 </div>
@@ -315,7 +343,8 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="border-0"><pre class="h6" id="view_content" style="display: block"></pre></td>
+                            <td class="border-0"><pre class="h6" id="view_content" style="display: block"></pre>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -464,6 +493,46 @@ $(document).on("click","#settings", function() {
             console.log("SUCCESS: ");
             $("#view_content").text(response);
         },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+
+$(document).on("click","button[name='n-strace-btn']", function() {
+
+    if ($(this).attr('id') == "id-on-btn") {
+        var flag = 'on';
+
+        $('#id-on-span').css('display', 'inline-block');
+        $('#id-strace-on').css('display', 'none');
+        
+    } else if ($(this).attr('id') == "id-off-btn") {
+        var flag = 'off';
+
+        $('#id-on-span').css('display', 'none');
+        $('#id-strace-on').css('display', 'inline-block');
+
+        $('#id-off-span').css('display', 'inline-block');
+        $('#id-strace-off').css('display', 'none');
+    }
+
+    $.ajax({
+        url: "/analysis/strace",
+        type: "GET",
+        async: false,
+        data: {"flag": flag},
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+            $("#view_content").text(response);
+
+            $('#id-off-span').css('display', 'none');
+            $('#id-strace-off').css('display', 'inline-block');
+        },
+
         error: function(error) {
             console.log("ERROR: " + error);
         }

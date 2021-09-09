@@ -1,6 +1,12 @@
 # -*- coding:utf-8 -*-
 
+__all__=[
+    'StraceManager'
+]
+
 #############################################################################
+
+from threading import Thread
 
 from module.android.Analysis.process import ProcessInfor
 from module.android.cmd import shell, adb
@@ -17,27 +23,45 @@ sp                  = getSharedPreferences(SHARED_PATH)
 ANALYSIS_DIR        = sp.getString('ANALYSIS_DIR')
 DUMP_PATH           = Join(ANALYSIS_DIR, 'strace.txt')
 
-TRACE_TIMEOUT       = 60
-
 ################################################################################
 
-def straceStart(pkg):
-    LOG.info(f"{'[*]':<5}Start Strace")
+class StraceManager(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.pid = None
+        self.pkg = None
 
-    pif = ProcessInfor()
-    pid = pif.getPid(pkg)
+    def run(self):
+        self.straceStart()
 
-    if len(pid) < 1:
-        LOG.info("Not Running Process")
+    def setProcess(self, pkg):
+        self.pkg = pkg
+        pif = ProcessInfor()
+        pid = pif.getPid(pkg)
 
-    #cmd = f"strace -s 65535 -fF -t -i -x -o /data/local/tmp/strace.txt -p {int(pid[0])}"
-    cmd = f"strace -s 65535 -t -i -x -o /data/local/tmp/strace.txt -p {int(pid[0])}"
-    shell.runCommand(cmd, shell=True, timeout=TRACE_TIMEOUT)
+        if pid is None:
+            LOG.info(f"{'[*]':<5}Not Running Process")
+            return False
+        else:
+            self.pid = int(pid[0])
+            return True
 
-    LOG.info("End Dump")
+    def straceStart(self):
+        LOG.info(f"{'[*]':<5}Running stracing...")
+        #cmd = f"strace -s 65535 -fF -t -i -x -o /data/local/tmp/strace.txt -p {int(pid[0])}"
+        cmd = f"strace -s 65535 -t -i -x -o /data/local/tmp/strace.txt -p {self.pid}"
+        shell.runCommand(cmd, shell=True)
 
-    LOG.info("Download DumpFile Start")
-    cmd = f"adb pull /data/local/tmp/strace.txt {DUMP_PATH}"
-    shell.runCommand(cmd, shell=False)
+    def straceStop(self):
+        LOG.info(f"{'[*]':<5}End Strace & Dump")
+        #cmd = f"kill -9 {self.pid}"
+        cmd = f"am force-stop {self.pkg}"
+        shell.runCommand(cmd, shell=True)
 
-    LOG.info(f"{'[*]':<5}End Strace")
+        LOG.info(f"{'[*]':<5}Download DumpFile Start")
+        cmd = f"adb pull /data/local/tmp/strace.txt {DUMP_PATH}"
+        shell.runCommand(cmd, shell=False)
+
+        LOG.info(f"{'[*]':<5}End Strace")
+
+        return DUMP_PATH
