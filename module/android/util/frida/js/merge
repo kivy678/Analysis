@@ -1,0 +1,56 @@
+#!/usr/bin/env python
+
+import os
+import re
+
+################################################################################
+
+BASE_DIR     = os.path.dirname(os.path.realpath(__file__))
+FILE_MATCHER = re.compile(r'(.+)-([0-9]+)-(.*)\.js')
+
+################################################################################
+
+def iterateJS():
+
+    files = sorted([ 
+        os.path.basename(os.path.join(_r, _fn))
+        for _r, _d, _fl in os.walk(os.path.join(BASE_DIR, '.'))
+        for _fn in filter(lambda x: x.endswith('.js'), _fl)
+    ])
+
+    for fp in files:
+
+        match = FILE_MATCHER.match(fp)
+        if not match:
+            continue
+
+        if match.group(2).startswith('100'):
+            continue
+
+        yield fp
+
+    raise StopIteration
+
+################################################################################
+
+def main():
+    try:
+        with open('merge.js', 'w', encoding="utf-8") as writer:
+            for fp in iterateJS():
+                with open(fp, 'r', encoding="utf-8") as reader:
+                    writer.write('\n')
+                    writer.write('//-- -----------------------------------------------------------------------------\n')
+                    writer.write('//-- BEGIN {}\n\n'.format(fp))
+                    writer.write(reader.read().strip())
+                    writer.write('\n\n//-- END {}\n'.format(fp))
+                    writer.write('//-- -----------------------------------------------------------------------------\n\n')
+
+    except Exception as e:
+        #print(e)
+        pass
+
+################################################################################
+
+if __name__ == '__main__':
+    main()
+    print('Merge End')

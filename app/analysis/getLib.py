@@ -2,6 +2,8 @@
 
 #############################################################################
 
+from module.android.Analysis.process import ProcessInfor
+
 from hurry.filesize import size as convSize
 from hurry.filesize import alternative
 
@@ -68,3 +70,9 @@ def ida_List(sha256):
 
     data = map(lambda x: (x.replace(analysis_path, '')[1:], convSize(FileSize(x), system=alternative)), data)
     return data
+
+def getPid(pkg):
+    pi = ProcessInfor()
+    pid_list = pi.getPid(pkg)
+
+    return pid_list

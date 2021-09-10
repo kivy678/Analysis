@@ -115,35 +115,21 @@ class DEVICE_INSTALLER():
         cmd = f"chmod 755 /system/frida-server"
         shell.runCommand(cmd, shell=True)
 
-        #cmd = f"nohup /system/frida-server"
-        #shell.runCommand(cmd, shell=True, su=True)
-
         cmd = f"adb push {TOOL_PATH} /data/local/tmp/frida-server"
         shell.runCommand(cmd, shell=False)
 
-        LOG.info(f"{'':>5}[*] frida-server Run")
         cmd = f"chmod 755 /data/local/tmp/frida-server"
         shell.runCommand(cmd, shell=True)
-
-        #cmd = f"nohup /data/local/tmp/frida-server"
-        #shell.runCommand(cmd, shell=True, su=True)
 
     def androidServer(self):
         LOG.info(f"{'':>5}[*] android-server Install Start")
         TOOL_PATH = Join(TMP_DIR, f"android_{self._cpu}_server")
 
-        cmd = f"adb forward tcp:22222 tcp:22222"
-        shell.runCommand(cmd, shell=False)
-
         cmd = f"adb push {TOOL_PATH} /data/local/tmp/android_server"
         shell.runCommand(cmd, shell=False)
 
-        LOG.info(f"{'':>5}[*] android-server Run")
         cmd = f"chmod 755 /data/local/tmp/android_server"
         shell.runCommand(cmd, shell=True)
-
-        #cmd = f"nohup /data/local/tmp/android_server"
-        #shell.runCommand(cmd, shell=True, su=True)
 
     def userToolInstall(self):
         LOG.info(f"{'':>5}[*] User-Tool Install Start")

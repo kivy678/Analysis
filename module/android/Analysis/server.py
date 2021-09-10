@@ -6,11 +6,13 @@ __all__=[
 ]
 #############################################################################
 
+import time
+from multiprocessing import Process
+
 from module.android.cmd import shell, adb
 from util.Logger import LOG
 
 #############################################################################
-
 
 def jdbStart():
     LOG.info(f"{'[*]':<5}Start jdb")
@@ -24,17 +26,34 @@ def jdbStart():
 
     LOG.info(f"{'[*]':<5}jdwp END")
 
+def startFridaServer():
+    LOG.info(f"{'':>5}[*] frida-server Run")
 
-def dynamicServer():
-    LOG.info(f"{'[*]':<5}Start Server")
+    cmd = f"cd /system && ./frida-server"
+    shell.runCommand(cmd, shell=True, su=True)
+
+    #cmd = f"cd /data/local/tmp && ./frida-server"
+    #shell.runCommand(cmd, shell=True, su=True)
+
+def startAndroidServer():
+    LOG.info(f"{'':>5}[*] android-server Run")
 
     cmd = f"adb forward tcp:22222 tcp:22222"
     shell.runCommand(cmd, shell=False)
 
-    cmd = f"cd /data/local/tmp && ./android_server -p 22222 &"
-    shell.runCommand(cmd, shell=True, timeout=5)
+    cmd = f"cd /data/local/tmp && ./android_server -p22222"
+    shell.runCommand(cmd, shell=True, su=True)
 
-    cmd = f"cd /system && ./frida-server &"
-    shell.runCommand(cmd, shell=True, timeout=5)
+def dynamicServer():
+    LOG.info(f"{'[*]':<5}Start Server")
 
-    LOG.info(f"{'[*]':<5}End Commnad")
+    for server in [startFridaServer, startAndroidServer]:
+        s = Process(target=server)
+        s.start()
+        time.sleep(5)
+
+        s.terminate()
+        while s.is_alive():
+            time.sleep(1)
+
+        s.close()

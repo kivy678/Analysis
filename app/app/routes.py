@@ -56,6 +56,8 @@ def app():
             f.save(f_path)
 
             NewName = Join(SAMPLE_DIR, getSHA256(f_path))
+
+            Delete(NewName)
             os.rename(f_path, NewName)
 
             LOG.info(f"{'[*]':<5}Start Update Sample")
@@ -134,6 +136,9 @@ def remove():
     try:
         APP.query.filter_by(sha256=sha256).delete()
         db.session.commit()
+
+        Delete(Join(SAMPLE_DIR, sha256))
+
     except Exception as e:
         print(e)
         db.session.rollback()

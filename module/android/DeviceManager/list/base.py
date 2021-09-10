@@ -81,6 +81,7 @@ class DEVICE_MANAGER(DEVICE_BASIS):
             self._installer.appInstaller()
             self._installer.toolInstaller()
             self._installer.userToolInstaller()
+            self._installer.serverInstaller()
 
             self._installer.commit()
 

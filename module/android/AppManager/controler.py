@@ -33,4 +33,3 @@ def appDebugger(path):
 def appSetDebug(pkg, dbg=True):
     LOG.info(f"{'[*]':<5}set debug: " + pkg)
     adb.setDebug(pkg, dbg)
-    LOG.info(f"{'[*]':<5}end debug: " + pkg)

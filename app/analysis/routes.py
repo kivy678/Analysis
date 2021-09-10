@@ -8,7 +8,7 @@ from hurry.filesize import size as convSize
 from hurry.filesize import alternative
 
 from app.analysis import blueprint
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, request, jsonify
 from flask_login import login_required, current_user
 from app import login_manager
 from jinja2 import TemplateNotFound
@@ -32,9 +32,11 @@ from app.analysis.getLib import *
 from module.android.Analysis.server import *
 
 from module.android.Analysis.trace import StraceManager
+from module.android.Analysis.memdump import *
 
 from module.spark.strace_filter import runSpark
 from module.spark.view import getStatitics
+
 
 ################################################################################
 
@@ -208,3 +210,33 @@ def strace():
             getStatitics(Join(ANALYSIS_DIR, 'dump.csv'))
 
             return "Success"
+
+@blueprint.route('/analysis/mdump', methods=['GET'])
+@login_required
+def mdump():
+    pkg = getSession('pkgName')
+
+    if pkg is None:
+        return 'Choose a package'
+
+    if getPid(pkg) is None:
+        return "run the app"
+
+    if request.method == 'GET':
+        return getMemoryDump(pkg)
+
+
+@blueprint.route('/analysis/pdump', methods=['GET'])
+@login_required
+def pdump():
+    pkg = getSession('pkgName')
+
+    if pkg is None:
+        return 'Choose a package'
+
+    pid = getPid(pkg)
+    if pid is None:
+        return jsonify({'msg': 'run the app', 'ok': False})
+
+    if request.method == 'GET':
+        return jsonify({'msg': getPackerDump(pkg, pid[0]), 'ok': True})

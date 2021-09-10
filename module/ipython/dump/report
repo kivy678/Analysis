@@ -1,2 +1,27 @@
 2021-09-08 14:48:53,404|INFO|il2cppFunc.py|30|il2cppFunc|<module>|start il2cpp...
 2021-09-08 14:51:03,739|INFO|il2cppFunc.py|111|il2cppFunc|<module>|il2cpp Script finished!
+2021-09-10 15:32:39,694|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 15:32:39,789|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 15:32:40,805|INFO|getDumper.py|45|getDumper|<module>|4881 Attach success
+2021-09-10 15:54:52,842|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 15:54:52,851|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 15:54:53,961|INFO|getDumper.py|45|getDumper|<module>|5352 Attach success
+2021-09-10 15:55:06,252|INFO|getDumper.py|119|getDumper|<module>|get: 0xc2011000L:0x5000L:base.apk
+2021-09-10 15:55:11,003|INFO|getDumper.py|119|getDumper|<module>|get: 0xa7689000L:0x40b000L:classes.jar
+2021-09-10 15:55:29,905|INFO|getDumper.py|144|getDumper|<module>|***************************** Main End *****************************
+2021-09-10 16:00:18,127|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 16:00:18,138|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 16:00:19,148|INFO|getDumper.py|45|getDumper|<module>|5414 Attach success
+2021-09-10 16:02:47,719|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 16:02:47,730|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 16:02:48,927|INFO|getDumper.py|45|getDumper|<module>|5414 Attach success
+2021-09-10 16:03:00,305|INFO|getDumper.py|119|getDumper|<module>|get: 0xc2011000L:0x5000L:base.apk
+2021-09-10 16:07:25,198|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 16:07:25,210|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 16:07:26,224|INFO|getDumper.py|45|getDumper|<module>|6132 Attach success
+2021-09-10 16:08:30,970|INFO|getDumper.py|29|getDumper|<module>|Start Debugging
+2021-09-10 16:08:30,980|INFO|getDumper.py|39|getDumper|<module>|Load Debugger success
+2021-09-10 16:08:32,168|INFO|getDumper.py|45|getDumper|<module>|6132 Attach success
+2021-09-10 16:08:47,397|INFO|getDumper.py|119|getDumper|<module>|get: 0xc2006000L:0x5000L:base.apk
+2021-09-10 16:08:51,586|INFO|getDumper.py|119|getDumper|<module>|get: 0xa7689000L:0x40b000L:classes.jar
+2021-09-10 16:09:12,855|INFO|getDumper.py|144|getDumper|<module>|***************************** Main End *****************************

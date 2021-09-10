@@ -1,0 +1,134 @@
+#:kivy 1.10.0
+
+#:import FONT       module.frida.gui.settings.FONT
+#:import FONT_SIZE  module.frida.gui.settings.FONT_SIZE
+#:import RES_PATH   module.frida.gui.settings.RES_PATH
+#:import JS_PATH    module.frida.gui.settings.JS_PATH
+
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: 'vertical'
+
+        FileChooserListView:
+#        FileChooserIconView:
+            id: FILECHOOSER_ID
+            path: JS_PATH
+            multiselect: False
+
+
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+
+            Button:
+                text: 'Load'
+                on_release: root.load_context(FILECHOOSER_ID.path, FILECHOOSER_ID.selection)
+
+            Button:
+                text: 'Cancel'
+                on_release: root.cancel()
+
+
+<HEADER_BAR>:
+    ActionView:
+        use_separator: True
+
+        ActionPrevious:
+            app_icon: RES_PATH + r'\icon.png'
+            title: 'LOAD'
+            with_previous:False
+            on_release: root.show_load()
+
+        ActionGroup:
+            text: 'Action'
+            mode: 'spinner'
+
+            ActionButton:
+                text: 'Start'
+                on_release: root.on_start()
+
+            ActionButton:
+                text: 'Stop'
+                on_release: root.on_stop()
+
+            ActionButton:
+                text: 'Save'
+                on_release: root.on_save()
+
+        ActionGroup:
+            text: 'Option'
+            mode: 'spinner'
+
+            ActionButton:
+                text: 'Version'
+                on_release: root.on_version()
+
+            ActionButton:
+                text: 'EXIT'
+                on_release: root.on_exit()
+
+
+<CONTEXT_BOX>:
+    ScrollView:
+        do_scroll_x: False
+        BoxLayout:
+            size_hint: (None, None)
+            size: (800, 1000)
+
+            Label:
+                id: CONTEXT_ID
+                text_size: self.width, None
+                padding_x: 15
+
+                font_size: FONT_SIZE
+                font_name: FONT
+
+                text: 'Empty'
+
+
+<CONTEXT_INPUT_BOX>:
+    ScrollView:
+        do_scroll_x: False
+        BoxLayout:
+            size_hint: (None, None)
+            size: (800, 1000)
+
+            TextInput:
+                id: CONTEXT_ID
+                text_size: self.width, None
+                padding_x: 15
+
+                font_size: FONT_SIZE
+                font_name: FONT
+
+                text: 'Empty'
+
+
+<CONTEXT_TAB_BOX>:
+    do_default_tab: False
+
+    TabbedPanelItem:
+        text: "LOG"
+        CONTEXT_BOX:
+            id: LOG_BOX_ID
+
+    TabbedPanelItem:
+        text: "MODIFY"
+        CONTEXT_INPUT_BOX:
+            id: MODIFY_BOX_ID
+
+
+<RootWidget>:
+    BoxLayout:
+        orientation: 'vertical'
+
+        HEADER_BAR:
+            id: HEADER_BAR_ID
+
+        CONTEXT_TAB_BOX:
+            id: CONTEXT_TAB_BOX_ID
+
+
