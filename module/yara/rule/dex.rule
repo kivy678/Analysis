@@ -1,0 +1,10 @@
+rule findDex
+{
+    strings:
+    	$dey = { 64 65 79 0A 30 33 36 }
+		$dex = { 64 65 78 0A 30 33 35 }
+		$elf = { 7f 45 4c 46 }		
+
+    condition:
+       $dey or $dex or $elf
+}

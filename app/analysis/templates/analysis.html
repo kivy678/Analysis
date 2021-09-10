@@ -595,7 +595,27 @@ $(document).on("click","#packer", function() {
 });
 
 
+$(document).on("click","#yara", function() {
+    var link_class = $(this).find('span span');
+    var link_org_class_name = link_class.attr('class');
+    var loading_class_name = "spinner-border spinner-border-sm";
+    link_class.attr('class', loading_class_name);
 
+    $.ajax({
+        url: "/analysis/yara",
+        type: "GET",
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+            link_class.attr('class', link_org_class_name)
+            $("#view_content").text(response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
 
 
 

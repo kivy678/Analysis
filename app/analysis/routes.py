@@ -37,6 +37,7 @@ from module.android.Analysis.memdump import *
 from module.spark.strace_filter import runSpark
 from module.spark.view import getStatitics
 
+from module.yara.run import run
 
 ################################################################################
 
@@ -47,6 +48,8 @@ ANALYSIS_DIR        = sp.getString("ANALYSIS_DIR")
 
 RUN_PATH            = Join(BASE_DIR, "module", "ipython", "run.bat")
 RUN_IL2CPP_PATH     = Join(BASE_DIR, "module", "ipython", "run_il2cpp.bat")
+
+FILTER_DIR          = Join(ANALYSIS_DIR, 'filter')
 
 ################################################################################
 
@@ -240,3 +243,17 @@ def pdump():
 
     if request.method == 'GET':
         return jsonify({'msg': getPackerDump(pkg, pid[0]), 'ok': True})
+
+@blueprint.route('/analysis/yara', methods=['GET'])
+@login_required
+def yara():
+    pkg = getSession('pkgName')
+
+    if request.method == 'GET':
+        dump = []
+
+        for path in run(pkg, 'dex.rule'):
+            Copy(path, Join(FILTER_DIR, PathSplit(path)[1]))
+            dump.append(BaseName(path))
+
+    return '\n'.join(dump)
