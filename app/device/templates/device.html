@@ -18,12 +18,15 @@
                             <div class="col">
                             <h2 class="h5">Device List</h2>
                             </div>
+                            <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-secondary" id="ld-dev-load">LOAD</button>
+                            </div>
                         </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
-                            <tr>
+                            <tr id="id-devlist-tb">
                                 <th scope="col">NAME</th>
                                 <th scope="col">MODEL</th>
                                 <th scope="col">CPU</th>
@@ -140,7 +143,7 @@
     </div>
 
 
-    <div class="col-12 col-xl-4 mb-4">
+    <div class="col-12 col-xl-4 mb-4"  style="display: none">
         <div class="col-12 px-0 mb-4">
             <div class="card border-light shadow-sm">
                 <div class="card-header">
@@ -178,6 +181,15 @@
     </div>
 
 
+
+
+
+
+
+
+
+
+
 </div>
 
 
@@ -186,6 +198,29 @@
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
 <script type="text/javascript">
+
+$(document).on('click', '#ld-dev-load', function() {
+  //  $('#id-devlist-tb').children('th').each(function(i, el) {
+     //   alert($(this).text());    
+   // });
+
+    $.ajax({
+        url: "/device",
+        type: "GET",
+        data: {"data": 'load'},
+
+        success: function(response) {
+            console.log("SUCCESS: " + response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+
+    });
+
+
+});
+
 
 $(document).on('click', '#ld_run_btn', function() {
 
