@@ -1,0 +1,287 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Tables {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+    <div class="py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+                <li class="breadcrumb-item"><a href="#"><span class="fas fa-home"></span></a></li>
+                <li class="breadcrumb-item"><a href="#">Tables</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Compare</li>
+            </ol>
+        </nav>
+        <div class="d-flex justify-content-between w-100 flex-wrap">
+            <div class="mb-3 mb-lg-0">
+                <h1 class="h4">CompareSample</h1>
+                <p class="mb-0">You can select a sample</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row justify-content-md-center">
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="card border-light shadow-sm">
+                <div class="card-header border-bottom border-light d-flex justify-content-between">
+                    <h2 class="h5 mb-0">Static Analysis Menu</h2>
+                    <button type="button" class="btn btn-sm btn-secondary" onClick="toggleDiv('id-compare-menu')">See all</button>
+                </div>
+                <div class="card-body" id="id-compare-menu" style="display: none">
+                    <ul class="list-group list-group-flush list my--3">
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">FileTree</h4></div>
+                              <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="tree" onClick="toggleDiv('id-filetree-filter')">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                View</button>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">Mono</h4></div>
+                              <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="mono">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                View</button>
+                              </div>
+                            </div>
+                        </li>
+                        <li class="list-group-item px-0">
+                            <div class="row align-items-center">
+                              <div class="col-auto ms--2"><h4 class="h6 mb-0">IL2CPP</h4></div>
+                              <div class="col text-right">
+                                <button type="button" class="btn btn-sm btn-facebook" name="n-viewbtn" id="il2cpp">
+                                    <span class="me-1"><span class="fas fa-link"></span></span>
+                                View</button>
+                              </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 mb-4">
+            <div class="col" id="id-filetree-filter" style="display: none">                
+                <fieldset>
+                    <legend class="h6">File Tree Filter List</legend>
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="res" name="n-checkbox-filter" checked>
+                              <label class="form-check-label">res</label>
+                          </div>
+                          <div class="form-check">
+                              <input class="form-check-input" type="checkbox" value="Data" name="n-checkbox-filter" checked>
+                              <label class="form-check-label">Data</label>
+                          </div>
+                </fieldset>
+                
+                <div class="mt-3">
+                    <button type="submit" class="btn btn-sm btn-dark" id="id-filter-send-btn">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12 col-sm-6 col-xl-4 mb-4"></div>
+
+    </div>
+
+    <div class="col-12 mb-4">
+        <div class="card card-body shadow-sm table-wrapper table-responsive">
+          <table class="table table-hover" id="id-table-appinfor">
+              <thead>
+                  <tr>
+                      <th></th>
+                      <th>sha256</th>
+                      <th>Package Name</th>
+                      <th>Compare Check</th>
+                  </tr>
+              </thead>
+              <tbody>
+                <!-- Item -->
+                {% for sample in sample_infor %}
+                <tr>
+                    <td><a href="#" class="fw-bold">{{ sample.id }}</a></td>
+                    <td><span class="fw-bold" id="sha256">{{ sample.sha256 }}</span></td>
+                    <td><span class="fw-normal">{{ sample.pkg }}</span></td>
+                    <td>
+                        <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="{{ sample.sha256 }}" name="n-sample-checkbox">
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}                            
+              </tbody>
+          </table>
+          <div class="card-footer px-3 border-0 d-flex align-items-center justify-content-between">
+              <nav aria-label="Page navigation example">
+                  <ul class="pagination mb-0">
+                      <li class="page-item">
+                          <a class="page-link" href="#">Previous</a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" href="#">1</a>
+                      </li>
+                      <li class="page-item active">
+                          <a class="page-link" href="#">2</a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" href="#">3</a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" href="#">4</a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" href="#">5</a>
+                      </li>
+                      <li class="page-item">
+                          <a class="page-link" href="#">Next</a>
+                      </li>
+                  </ul>
+              </nav>
+              <div class="fw-bold small d-none d-lg-block">Showing <b>5</b> out of <b>25</b> entries</div>
+          </div>
+        </div>
+    </div>
+
+    <div class="col-12 mb-4">
+        <div class="card border-light shadow-sm">
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-centered table-nowrap mb-0 rounded">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="border-0">Text Viewer</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td class="border-0"><pre class="h6" id="view_content" style="display: block"></pre>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}
+<script type="text/javascript">
+
+$(document).on("click","#id-filter-send-btn", function() {
+    var sha256 = new Array();
+    var file_filter = new Array();
+
+    $("input[name=n-sample-checkbox]:checked").each(function(i, el) {
+        sha256[i] = $(this).val();   
+    });
+
+    $("input[name=n-checkbox-filter]:checked").each(function(i, el) {
+        file_filter[i] = $(this).val();
+    });
+ 
+    $.ajax({
+        url: "/compare/tree",
+        type: "POST",
+        traditional : true,
+        data: {"sha256": sha256, "file_filter": file_filter},
+
+        success: function(response) {
+            console.log("SUCCESS: ");
+            $("#view_content").text(response);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+
+$(document).on("click","#mono", function() {
+    var sha256 = new Array();
+
+    $("input[name=n-sample-checkbox]:checked").each(function(i, el) {
+        sha256[i] = $(this).val();   
+    });
+
+    var link_class = $(this).find('span span');
+    var link_org_class_name = link_class.attr('class');
+    var loading_class_name = "spinner-border spinner-border-sm";
+
+    link_class.attr('class', loading_class_name);
+
+    $.ajax({
+        url: "/compare/mono",
+        type: "POST",
+        traditional : true,
+        data: {"sha256": sha256},
+
+        success: function(response) {
+            console.log("SUCCESS: ");
+            $("#view_content").text(response);
+            link_class.attr('class', link_org_class_name);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+
+$(document).on("click","#il2cpp", function() {
+    var sha256 = new Array();
+
+    $("input[name=n-sample-checkbox]:checked").each(function(i, el) {
+        sha256[i] = $(this).val();   
+    });
+
+    var link_class = $(this).find('span span');
+    var link_org_class_name = link_class.attr('class');
+    var loading_class_name = "spinner-border spinner-border-sm";
+
+    link_class.attr('class', loading_class_name);
+ 
+    $.ajax({
+        url: "/compare/il2cpp",
+        type: "POST",
+        traditional : true,
+        data: {"sha256": sha256},
+
+        success: function(response) {
+            console.log("SUCCESS: ");
+            $("#view_content").text(response);
+            link_class.attr('class', link_org_class_name);
+        },
+        error: function(error) {
+            console.log("ERROR: " + error);
+        }
+    });
+
+});
+
+
+
+function toggleDiv(cName) {
+    var decpMenu = document.getElementById(cName);
+
+    if (decpMenu.style.display === "none") {
+        decpMenu.style.display = "block";
+    } else {
+        decpMenu.style.display = "none";
+    }
+}
+
+
+</script>
+{% endblock javascripts %}
